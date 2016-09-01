@@ -27,4 +27,14 @@ public class Teste {
         System.out.println("on method Template");
         return "template";
     }
+    @RequestMapping("/login")
+    public String login() {
+        System.out.println("on method Login");
+        return "login";
+    }
+    @RequestMapping("/admin")
+    public String admin() {
+        System.out.println("on method Admin");
+        return "admin";
+    }
 }
