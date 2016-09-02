@@ -5,13 +5,16 @@
  */
 package bussiness;
 
+import javax.servlet.http.HttpServletRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author asus
  */
+@Scope("session")
 public class UsuarioFacebook {
 
     private Long id;
@@ -27,11 +30,16 @@ public class UsuarioFacebook {
     private String name;
     private String updatedTime;
 
-    public UsuarioFacebook(JSONObject jsonUsuario) throws JSONException {
+    public UsuarioFacebook(JSONObject jsonUsuario, HttpServletRequest request) throws JSONException {
         System.out.println("------------------------------------------------"
                 + "CHEGAMOS AQUI"
                 + "-------------------------------------------------------");
         System.err.println(jsonUsuario.toString());
+        request.getSession().setAttribute("id", jsonUsuario.getString("id"));
+        request.getSession().setAttribute("name", jsonUsuario.getString("name"));
+        request.getSession().setAttribute("gender", jsonUsuario.getString("gender"));
+        request.getSession().setAttribute("email", jsonUsuario.getString("email"));
+        request.getSession().setAttribute("picture", jsonUsuario.getJSONObject("picture").getJSONObject("data").getString("url"));
         //informacoes do servidor
         /**
             {

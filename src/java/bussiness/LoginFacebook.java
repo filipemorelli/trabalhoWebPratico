@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +27,7 @@ public class LoginFacebook {
     //URL de volta
     private static final String redirect_uri = "http://localhost:8080/WebApplication5/loginfbresponse";
 
-    public void obterUsuarioFacebook(String code) {
+    public void obterUsuarioFacebook(String code, HttpServletRequest request) {
 
         String retorno = null;
         try {
@@ -65,11 +66,11 @@ public class LoginFacebook {
 
         UsuarioFacebook usuarioFacebook = null;
         try {
-            usuarioFacebook = new UsuarioFacebook(resp);
+            usuarioFacebook = new UsuarioFacebook(resp, request);
         } catch (JSONException ex) {
             Logger.getLogger(LoginFacebook.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(usuarioFacebook.toString());
+        //System.out.println(usuarioFacebook.toString());
 
     }
 

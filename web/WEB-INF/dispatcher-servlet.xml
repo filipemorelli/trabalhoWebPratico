@@ -21,8 +21,19 @@
  
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/view/"
+          p:prefix="/site/view/"
           p:suffix=".jsp" />
     
-    <mvc:resources mapping="/themes/**" location="/themes/"/>
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <bean class="controllers.AppController" />
+        <mvc:interceptor>
+            <mvc:mapping path="/site"/>
+            <mvc:exclude-mapping path="/themes/**"/>
+            <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+    
+    <mvc:resources mapping="/themes/**" location="/themes/" />
 </beans>
