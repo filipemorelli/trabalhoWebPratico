@@ -4,7 +4,7 @@
         <title>Login</title>
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="description" content="Materialize is a modern responsive CSS framework based on Material Design by Google. ">
-        <%@include file="layout/login/configuracaoCss.jsp" %>
+        <%@include file="../layout/login/configuracaoCss.jsp" %>
 
     </head>
     <body class="blue darken-4">
@@ -25,6 +25,6 @@
                 </div>
             </div>
         </div>
-        <%@include file="layout/login/configuracaoJs.jsp" %>
+        <%@include file="../layout/login/configuracaoJs.jsp" %>
     </body>
 </html>

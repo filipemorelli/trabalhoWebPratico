@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controllers;
+
+import bussiness.LoginFacebook;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+/**
+ *
+ * @author asus
+ */
+@Controller
+public class UserController {
+
+    @Autowired
+    private LoginFacebook loginFacebook;
+
+    /**
+     * Método que chama URL do facebook onde o usuário poderá autorizar a
+     * aplicação a acessar seus recursos privados.
+     *
+     * @return
+     */
+    @RequestMapping("/loginfb")
+    public String logarComFacebook() {
+        return "redirect:" + loginFacebook.getLoginRedirectURL();
+    }
+
+    /**
+     * Executado quando o Servidor de Autorização fizer o redirect.
+     *
+     * @param code
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    @RequestMapping("/loginfbresponse")
+    public String logarComFacebook(String code) throws MalformedURLException, IOException {
+
+        loginFacebook.obterUsuarioFacebook(code);
+
+        return "redirect:/admin";
+    }
+
+    /**
+     * Entrou no na raiz do site irá ser rediercionado para pagina de login
+     */
+    @RequestMapping("/")
+    public String index() {
+        System.out.println("on method");
+        return "redirect:/login";
+    }
+
+    /**
+     * A se fazer de forma mais adequada
+     *
+     * @return
+     */
+    @RequestMapping("/login")
+    public String login() {
+        System.out.println("on method Login");
+        return "user/login";
+    }
+
+    /**
+     * Painel do usuário na utilização do sistema
+     *
+     * @return
+     */
+    @RequestMapping("/admin")
+    public String admin() {
+        System.out.println("on method Admin");
+        return "user/admin";
+    }
+    
+    /**
+     * Termos de uso do sistema ou site por parte do usuário
+     * @return 
+     */
+    @RequestMapping("/perfil")
+    public String perfil() {
+        System.out.println("on method Perfil");
+        return "user/admin";
+    }
+    
+    /**
+     * Termos de uso do sistema ou site por parte do usuário
+     * @return 
+     */
+    @RequestMapping("/termos-de-uso")
+    public String termosDeUso() {
+        System.out.println("on method Termos");
+        return "user/admin";
+    }
+
+     /**
+     * Politicas de privacidade do sistema ou site por parte do usuário
+     * @return 
+     */   
+    @RequestMapping("/politicas-de-privacidade")
+    public String politicasDePrivacidade() {
+        System.out.println("on method Politicas");
+        return "user/admin";
+    }
+    
+    /**
+     * Politicas de privacidade do sistema ou site por parte do usuário
+     * @return 
+     */   
+    @RequestMapping("/sobre")
+    public String sobre() {
+        System.out.println("on method Sobre");
+        return "user/admin";
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such Order") // 404
+    public String error() {
+        System.out.println("Erro 404 acho que é improvavel ser aqui! mas...");
+        return "404";
+    }
+}

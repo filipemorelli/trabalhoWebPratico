@@ -16,3 +16,8 @@
 <link href="<c:url value='/themes/theme1/css/ghpages-materialize.css' />" type="text/css" rel="stylesheet" media="screen,projection">
 <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+    .waves-effect.waves-blue .waves-ripple {
+        background-color: rgba(33, 150, 243, 0.65)
+    }
+</style>

@@ -7,6 +7,7 @@
         document.write('<script src="<c:url value='/themes/theme1/bin/jquery-2.1.1.min.js' />"><\/script>');
     }
 </script>
+<script src="<c:url value='/themes/theme1/jade/lunr.min.js' />"></script>
 <script src="<c:url value='/themes/theme1/jade/search.js' />"></script>
 <script src="<c:url value='/themes/theme1/bin/materialize.js' />"></script>
 <script src="<c:url value='/themes/theme1/js/init.js' />"></script>
