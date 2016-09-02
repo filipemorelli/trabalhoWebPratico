@@ -26,10 +26,14 @@ public class LoginFacebook {
     //URL de volta
     private static final String redirect_uri = "http://localhost:8080/WebApplication5/loginfbresponse";
 
-    public void obterUsuarioFacebook(String code)
-            throws MalformedURLException, IOException {
+    public void obterUsuarioFacebook(String code) {
 
-        String retorno = readURL(new URL(this.getAuthURL(code)));
+        String retorno = null;
+        try {
+            retorno = readURL(new URL(this.getAuthURL(code)));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginFacebook.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String accessToken = null;
         @SuppressWarnings("unused")
         Integer expires = null;
@@ -50,7 +54,11 @@ public class LoginFacebook {
         
         JSONObject resp = null;
         try {
-            resp = new JSONObject(readURL(new URL("https://graph.facebook.com/me?access_token=" + accessToken)));
+            try {
+                resp = new JSONObject(readURL(new URL("https://graph.facebook.com/v2.1/me?fields=email%2Cname%2Cgender%2Clink%2Cpicture.type(large)&access_token=" + accessToken)));
+            } catch (IOException ex) {
+                Logger.getLogger(LoginFacebook.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (JSONException ex) {
             Logger.getLogger(LoginFacebook.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,7 +86,7 @@ public class LoginFacebook {
     public String getLoginRedirectURL() {
         return "https://graph.facebook.com/oauth/authorize?client_id="
                 + client_id + "&display=page&redirect_uri=" + redirect_uri
-                + "&scope=email,publish_actions,name,gender,link,picture.type(large)";
+                + "&scope=email,public_profile";
     }
 
     public String getAuthURL(String authCode) {

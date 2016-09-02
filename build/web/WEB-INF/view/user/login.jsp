@@ -17,7 +17,7 @@
                             <p>I am a very simple card. I am good at containing small bits of information.</p>
                         </div>
                         <div class="card-action">
-                            <a href="#" class="btn btn-block blue darken-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logar usando o facebook" title="Entrar usando o facebook">
+                            <a href="loginfb" class="btn btn-block blue darken-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logar usando o facebook" title="Entrar usando o facebook">
                                 Facebook
                             </a>
                         </div>

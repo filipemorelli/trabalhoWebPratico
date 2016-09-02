@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class UserController {
 
-    @Autowired
-    private LoginFacebook loginFacebook;
+    //@Autowired
+    private LoginFacebook loginFacebook = new LoginFacebook();
 
     /**
      * Método que chama URL do facebook onde o usuário poderá autorizar a
@@ -99,7 +99,7 @@ public class UserController {
     @RequestMapping("/termos-de-uso")
     public String termosDeUso() {
         System.out.println("on method Termos");
-        return "user/admin";
+        return "user/termosDeUso";
     }
 
      /**
@@ -109,7 +109,7 @@ public class UserController {
     @RequestMapping("/politicas-de-privacidade")
     public String politicasDePrivacidade() {
         System.out.println("on method Politicas");
-        return "user/admin";
+        return "user/politicaDePrivacidade";
     }
     
     /**
