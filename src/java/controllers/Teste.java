@@ -9,6 +9,12 @@ package controllers;
  *
  * @author asus
  */
+import model.EnderecoModel;
+import model.OferecerCaronaModel;
+import model.PedirCaronaModel;
+import model.UserModel;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,32 +24,27 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  
 @Controller
 public class Teste {
-    /*
-    @RequestMapping("/")
-    public String execute() {
-        System.out.println("on method");
-        return "redirect:/login";
+
+    /**
+     * Metodo criado com o unico proposito de gerar o banco.
+     * Assim que for gerado ele deve ser comentado ou excluido
+     * @return 
+     */
+    //@RequestMapping("/db")
+    public String createDB() {
+        //Colocando configuracoes
+        AnnotationConfiguration annotationConfiguration = new AnnotationConfiguration();
+        //adicionando as classes que serao utilizadas na criacao do banco
+        
+        annotationConfiguration.addAnnotatedClass(EnderecoModel.class);
+        annotationConfiguration.addAnnotatedClass(UserModel.class);
+        annotationConfiguration.addAnnotatedClass(OferecerCaronaModel.class);
+        annotationConfiguration.addAnnotatedClass(PedirCaronaModel.class);
+        
+        //Configuracao da criacao do schema
+        SchemaExport schemaExport = new SchemaExport(annotationConfiguration);
+        //criacao do schema
+        schemaExport.create(true, true);
+        return "template";
     }
-    @RequestMapping("/template")
-    public String template() {
-        System.out.println("on method Template");
-        return "redirect:/login";
-    }
-    @RequestMapping("/login")
-    public String login() {
-        System.out.println("on method Login");
-        return "user/login";
-    }
-    @RequestMapping("/admin")
-    public String admin() {
-        System.out.println("on method Admin");
-        return "admin";
-    }
-    
-    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such Order") // 404
-    public String error(){
-        System.out.println("");
-        return "404";
-    }
-    */
 }

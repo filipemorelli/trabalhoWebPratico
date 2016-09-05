@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+
 /**
  *
  * @author Filipe
@@ -24,16 +25,22 @@ public class AppController extends HandlerInterceptorAdapter {
             return true;
         }
         
+        //Liberar a criacao do banco de dados
+        /*
+        if(uri.endsWith("db"))
+            return true;
+        */
         //Habilitar o tema
-        if(uri.contains("/themes")) {
+        if (uri.contains("/themes")) {
             return true;
         }
-        
+
         //habilitar paginas bloqueadas
         if (request.getSession().getAttribute("id") != null) {
             return true;
-        } 
+        }
         response.sendRedirect("login");
         return false;
     }
+
 }
