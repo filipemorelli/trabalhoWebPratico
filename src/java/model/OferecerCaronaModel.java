@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,33 +21,30 @@ import javax.persistence.TemporalType;
  *
  * @author Filipe
  */
-
 @Entity(name = "OferecerCarona")
 public class OferecerCaronaModel implements Serializable {
-    
+
     @Id
     @GeneratedValue
     private Long id;
-    
+
     @Column(columnDefinition = "TEXT")
     private String considerecoes;
-    
-    
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private UserModel user;
-    
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private EnderecoModel endereco;
-    
-    
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar created;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar modified;
 
     public Long getId() {
@@ -88,6 +86,36 @@ public class OferecerCaronaModel implements Serializable {
     public void setModified(Calendar modified) {
         this.modified = modified;
     }
-    
-    
+
+    public void save() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().save(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public void update() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().save(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public void delete() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().delete(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public OferecerCaronaModel load(long id) {
+        HibernateUtil.getSession().beginTransaction();
+        OferecerCaronaModel oferecerCaronaModel = (OferecerCaronaModel) HibernateUtil.getSession().load(OferecerCaronaModel.class, id);
+        HibernateUtil.getSession().getTransaction().commit();
+        return oferecerCaronaModel;
+    }
+
+    public static List<OferecerCaronaModel> loadAll(long id) {
+        HibernateUtil.getSession().beginTransaction();
+        List<OferecerCaronaModel> lista = HibernateUtil.getSession().createQuery("select oc from oferecercarona as oc").list();
+        HibernateUtil.getSession().getTransaction().commit();
+        return lista;
+    }
 }

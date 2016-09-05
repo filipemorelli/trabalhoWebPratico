@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +21,11 @@ import javax.persistence.TemporalType;
  */
 @Entity(name = "endereco")
 public class EnderecoModel implements Serializable {
+
     @Id
     @GeneratedValue
     private Long id;
-    
+
     private String endereco;
     private String complemento; //numero, A, B, Apartamento etc.
     @Column(length = 9)
@@ -34,13 +36,13 @@ public class EnderecoModel implements Serializable {
     private String estado;
     private String latitude;
     private String longitude;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar created;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar modified;
 
     public Long getId() {
@@ -114,5 +116,36 @@ public class EnderecoModel implements Serializable {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
-}
 
+    public void save() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().save(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public void update() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().save(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public void delete() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().delete(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public EnderecoModel load(long id) {
+        HibernateUtil.getSession().beginTransaction();
+        EnderecoModel enderecoModel = (EnderecoModel) HibernateUtil.getSession().load(EnderecoModel.class, id);
+        HibernateUtil.getSession().getTransaction().commit();
+        return enderecoModel;
+    }
+
+    public static List<EnderecoModel> loadAll(long id) {
+        HibernateUtil.getSession().beginTransaction();
+        List<EnderecoModel> lista = HibernateUtil.getSession().createQuery("select e from endereco as e").list();
+        HibernateUtil.getSession().getTransaction().commit();
+        return lista;
+    }
+}

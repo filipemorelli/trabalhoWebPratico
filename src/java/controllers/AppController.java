@@ -26,10 +26,10 @@ public class AppController extends HandlerInterceptorAdapter {
         }
         
         //Liberar a criacao do banco de dados
-        /*
+        
         if(uri.endsWith("db"))
             return true;
-        */
+        
         //Habilitar o tema
         if (uri.contains("/themes")) {
             return true;

@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,11 +40,11 @@ public class UserModel implements Serializable {
     private String url_social;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar created;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar modified;
 
     public Long getId() {
@@ -108,6 +109,43 @@ public class UserModel implements Serializable {
 
     public void setUrl_social(String url_social) {
         this.url_social = url_social;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + " , Sexo " + this.sexo + " , Telefone: " + this.telefone;
+    }
+
+    public void save() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().save(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public void update() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().update(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public void delete() {
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().delete(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public UserModel load(long id) {
+        HibernateUtil.getSession().beginTransaction();
+        UserModel userModel = (UserModel) HibernateUtil.getSession().load(UserModel.class, id);
+        HibernateUtil.getSession().getTransaction().commit();
+        return userModel;
+    }
+
+    public static List<UserModel> loadAll() {
+        HibernateUtil.getSession().beginTransaction();
+        List<UserModel> lista = HibernateUtil.getSession().createQuery("select u from user as u").list();
+        HibernateUtil.getSession().getTransaction().commit();
+        return lista;
     }
 
 }
