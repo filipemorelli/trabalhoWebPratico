@@ -27,7 +27,7 @@ public class LoginFacebook {
     //URL de volta
     private static final String redirect_uri = "http://localhost:8080/WebApplication5/loginfbresponse";
 
-    public void obterUsuarioFacebook(String code, HttpServletRequest request) {
+    public String obterUsuarioFacebook(String code, HttpServletRequest request) {
 
         String retorno = null;
         try {
@@ -71,7 +71,7 @@ public class LoginFacebook {
             Logger.getLogger(LoginFacebook.class.getName()).log(Level.SEVERE, null, ex);
         }
         //System.out.println(usuarioFacebook.toString());
-
+        return "redirect:/admin";
     }
 
     private String readURL(URL url) throws IOException {

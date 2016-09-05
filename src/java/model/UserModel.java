@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import org.hibernate.Query;
 
 /**
  *
@@ -25,14 +27,21 @@ public class UserModel implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotNull
     private String nome;
 
+    @NotNull
     @Column(length = 10)
     private String sexo;
+
+    @NotNull
     private String telefone;
 
     @Column(columnDefinition = "TEXT")
     private String url_imagem;
+
+    @NotNull
     private String email;
     private String id_social;
 
@@ -127,6 +136,12 @@ public class UserModel implements Serializable {
         HibernateUtil.getSession().update(this);
         HibernateUtil.getSession().getTransaction().commit();
     }
+    
+    public void saveOrUpdate(){
+        HibernateUtil.getSession().beginTransaction();
+        HibernateUtil.getSession().saveOrUpdate(this);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
 
     public void delete() {
         HibernateUtil.getSession().beginTransaction();
@@ -146,6 +161,25 @@ public class UserModel implements Serializable {
         List<UserModel> lista = HibernateUtil.getSession().createQuery("select u from user as u").list();
         HibernateUtil.getSession().getTransaction().commit();
         return lista;
+    }
+
+    public static UserModel loadBySocialId(String social_id) {
+        HibernateUtil.getSession().beginTransaction();
+        Query query = HibernateUtil.getSession().createQuery("select u from user as u where u.id_social = :paramIdSocial");
+        query.setParameter("paramIdSocial", social_id);
+        HibernateUtil.getSession().getTransaction().commit();
+        return (UserModel) query.list().get(0);
+    }
+
+    public static boolean existUser(String social_id) {
+        HibernateUtil.getSession().beginTransaction();
+        Query query = HibernateUtil.getSession().createQuery("select u from user as u where u.id_social = :paramIdSocial");
+        query.setParameter("paramIdSocial", social_id);
+        Boolean existUser = query.list().isEmpty();
+
+        HibernateUtil.getSession().getTransaction().commit();
+
+        return !existUser;
     }
 
 }

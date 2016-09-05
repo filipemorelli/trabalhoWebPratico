@@ -112,6 +112,7 @@
             </div>
 
         </main>
+        <%@include file="../layout/floatOther.jsp" %>
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/admin/configuracaoJs.jsp" %>
     </body>

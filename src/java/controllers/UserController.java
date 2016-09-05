@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import model.UserModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -47,9 +50,7 @@ public class UserController extends AppController {
     @RequestMapping("/loginfbresponse")
     public String respostaFacebook(String code, HttpServletRequest request) throws MalformedURLException, IOException {
         System.out.println("on method respostaFacebook");
-        loginFacebook.obterUsuarioFacebook(code, request);
-
-        return "redirect:/admin";
+        return loginFacebook.obterUsuarioFacebook(code, request);
     }
 
     /**
@@ -100,9 +101,21 @@ public class UserController extends AppController {
      * @return
      */
     @RequestMapping("/perfil")
-    public String perfil() {
+    public String perfil(@Valid UserModel user, BindingResult resust) {
         System.out.println("on method Perfil");
-        return "user/admin";
+        return "user/perfil";
+    }
+    
+    @RequestMapping("/atualiza-perfil")
+    public String atualizaPerfil(@Valid UserModel user, BindingResult resust) {
+        System.out.println("on method Perfil");
+        
+        if(resust.hasErrors()){
+            return "user/perfil";
+        }
+        
+        //add Mensagem
+        return "user/perfil";
     }
 
     /**

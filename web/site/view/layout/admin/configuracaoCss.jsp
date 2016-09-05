@@ -23,4 +23,34 @@
     #front-page-logo{
         border-radius: 50%;
     }
+    /* label color */
+    .input-field label {
+        color: #1976D2;
+    }
+    /* label focus color */
+    .input-field input:focus + label {
+        color: #1976D2;
+    }
+    /* label underline focus color */
+    .input-field input:focus {
+        border-bottom: 1px solid #1976D2;
+        box-shadow: 0 1px 0 0 #1976D2;
+    }
+    /* valid color */
+    .input-field input.valid {
+        border-bottom: 1px solid #4caf50;
+        box-shadow: 0 1px 0 0 #4caf50;
+    }
+    /* invalid color */
+    .input-field input.invalid {
+        border-bottom: 1px solid #f44336;
+        box-shadow: 0 1px 0 0 #f44336;
+    }
+    /* icon prefix focus color */
+    .input-field .prefix {
+        color: #2196F3;
+    }
+    .input-field .prefix.active {
+        color: #1976D2;
+    }
 </style>
