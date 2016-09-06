@@ -15,6 +15,9 @@
     $('input.autocomplete').autocomplete({
       data: {"Apple": null, "Microsoft": null, "Google": 'http://placehold.it/250x250'}
     });
+    
+    $("#loader").fadeOut("slow");
+    $("textarea").trigger('autoresize');
 
     $('.chips-initial').material_chip({
       readOnly: true,

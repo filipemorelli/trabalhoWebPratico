@@ -1,3 +1,4 @@
+<%@include file="loader.jsp" %>
 <header>
     <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a></div>
     <ul id="nav-mobile" class="side-nav fixed">
@@ -20,8 +21,8 @@
         </li>
         <li class="bold"><a href="perfil" class="waves-effect waves-blue">Perfil</a></li>
         <li class="bold"><a href="admin" class="waves-effect waves-blue">Histórico de Carona</a></li>
-        <li class="bold"><a href="#" class="waves-effect waves-blue">Pedir Carona</a></li>
-        <li class="bold"><a href="" class="waves-effect waves-blue">Oferecer Carona</a></li>
+        <li class="bold"><a href="pedir-carona" class="waves-effect waves-blue">Pedir Carona</a></li>
+        <li class="bold"><a href="oferecer-carona" class="waves-effect waves-blue">Oferecer Carona</a></li>
         <li class="bold"><a href="sobre" class="waves-effect waves-blue">Sobre</a></li>
         <li class="bold"><a href="termos-de-uso" class="waves-effect waves-blue">Termos de uso</a></li>
         <li class="bold"><a href="politicas-de-privacidade" class="waves-effect waves-blue">Politicas de privacidade</a></li>

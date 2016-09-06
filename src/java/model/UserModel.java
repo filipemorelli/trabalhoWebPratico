@@ -31,23 +31,22 @@ public class UserModel implements Serializable {
     private Long id;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Digite o nome")
     private String nome;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Selecione o sexo")
     @Column(length = 10)
     private String sexo;
 
-    @NotNull
-    @NotEmpty
+    @Column(insertable = false)
     private String telefone;
 
     @Column(columnDefinition = "TEXT")
     private String url_imagem;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "Digite o email corretamente")
     @Pattern(regexp = ".+@.+\\.[a-z]+")
     private String email;
     private String id_social;

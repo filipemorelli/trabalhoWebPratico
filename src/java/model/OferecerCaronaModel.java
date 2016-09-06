@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  *
  * @author Filipe
  */
-@Entity(name = "OferecerCarona")
+@Entity(name = "oferecercarona")
 public class OferecerCaronaModel implements Serializable {
 
     @Id

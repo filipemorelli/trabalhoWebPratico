@@ -73,7 +73,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s12 m2 offset-m10">
-                                    <button type="submit" class="btn btn-block blue darken-2"><i class="material-icons right">send</i>Enviar</button>
+                                    <button type="submit" class="btn btn-block waves-effect waves-light blue darken-2"><i class="material-icons right">send</i>Enviar</button>
                                 </div>
                             </div>
                         </form>

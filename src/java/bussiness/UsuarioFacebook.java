@@ -46,17 +46,20 @@ public class UsuarioFacebook {
         user.setEmail(jsonUsuario.getString("email"));
         user.setUrl_imagem(jsonUsuario.getJSONObject("picture").getJSONObject("data").getString("url"));
         user.setUrl_social(jsonUsuario.getString("link"));
-        user.setTelefone("");
         user.saveOrUpdate();
 
         //adiciona a sessao
-        request.getSession().setAttribute("id_social", jsonUsuario.getString("id"));
-        request.getSession().setAttribute("url_social", jsonUsuario.getString("link"));
-        request.getSession().setAttribute("name", jsonUsuario.getString("name"));
-        request.getSession().setAttribute("gender", jsonUsuario.getString("gender"));
-        request.getSession().setAttribute("email", jsonUsuario.getString("email"));
-        request.getSession().setAttribute("picture", jsonUsuario.getJSONObject("picture").getJSONObject("data").getString("url"));
-        request.getSession().setAttribute("phone", "");
+        request.getSession().setAttribute("id_social", user.getId_social());
+        request.getSession().setAttribute("url_social", user.getUrl_social());
+        request.getSession().setAttribute("name", user.getNome());
+        request.getSession().setAttribute("gender", user.getSexo());
+        request.getSession().setAttribute("email", user.getEmail());
+        request.getSession().setAttribute("picture", user.getUrl_imagem());
+        if(user.getTelefone() != null){
+            request.getSession().setAttribute("phone", user.getTelefone());
+        } else {
+            request.getSession().setAttribute("phone", "");
+        }
         //informacoes do servidor
         /**
          * {

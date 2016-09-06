@@ -17,11 +17,33 @@
 <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
+    #loader{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99999999;
+        background: #f5f5f5;
+    }
+    #loader .preloader-wrapper{
+        left: 50%;
+        top: 50%;
+        margin-left: -50px;
+        margin-top: -50px;
+    }
+    .btn-block{
+        display: block;
+        width: 100%;
+    }
     .waves-effect.waves-blue .waves-ripple {
         background-color: rgba(33, 150, 243, 0.65)
     }
     #front-page-logo{
         border-radius: 50%;
+    }
+    footer.page-footer{
+        padding-top: 0;
     }
     /* label color */
     .input-field label {

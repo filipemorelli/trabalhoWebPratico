@@ -17,7 +17,7 @@
         <main>      
             <div class="section no-pad-bot blue darken-2" id="index-banner">
                 <div class="container">
-                    <h1 class="header center-on-small-only">Perfil - <%= session.getAttribute("name")%></h1>
+                    <h1 class="header center-on-small-only">Oferecer Carona</h1>
                     <div class='row'>
                         <h4 class="header col s12 light">Somos um serviço de carona feito com Java e Google Design.</h4>
                     </div>
@@ -29,51 +29,35 @@
 
             <div class="container">
                 <div class="section">
-
                     <div class="row">
-                        <div class="col s12">
-                            <h4>Informações do seu perfil <%= session.getAttribute("name")%> </h4>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <form id="form-perfil" class="col s12" method="POST" action="atualiza-perfil">
+                        <form id="form-perfil" class="col s12" method="POST" action="pedidoCarona">
                             <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input id="nome" name="nome" type="text" class="validate" value="<%= session.getAttribute("name")%>" required>
-                                    <label for="icon_prefix">Nome</label>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">place</i>
+                                    <input id="endereco-saida" name="endereco-saida" type="text" class="validate" value="<%= session.getAttribute("name")%>" required>
+                                    <label for="icon_prefix">Endereço de saída</label>
                                     <form:errors path="user.nome" cssStyle="color:red" />
-                                </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">phone</i>
-                                    <input id="telefone" name="telefone" type="tel" class="validate" value="<%= session.getAttribute("phone")%>" required>
-                                    <label for="icon_prefix">Telefone</label>
-                                    <form:errors path="user.telefone" cssStyle="color:red"  />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">email</i>
-                                    <input id="email" name="email" type="email" class="validate" value="<%= session.getAttribute("email")%>" required>
-                                    <label for="icon_prefix">Email</label>
-                                    <form:errors path="user.email" cssStyle="color:red" />
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">place</i>
+                                    <input id="endereco-chegada" name="endereco-chegada" type="text" class="validate" value="<%= session.getAttribute("name")%>" required>
+                                    <label for="icon_prefix">Endereço de chegada</label>
+                                    <form:errors path="user.nome" cssStyle="color:red" />
                                 </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <select id="sexo" name="sexo" required>
-                                        <option value="" disabled>Escolha</option>
-                                        <option value="male" <%= session.getAttribute("gender").equals("male") ? "selected" : ""%>>Masculino</option>
-                                        <option value="fame" <%= session.getAttribute("gender").equals("fema") ? "selected" : ""%>>Feminino</option>
-                                        <option value="outro" <%= !session.getAttribute("gender").equals("male") && !session.getAttribute("gender").equals("fema") ? "selected" : ""%>>Outro</option>
-                                    </select>
-                                    <label>Sexo</label>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">create</i>
+                                    <textarea class="materialize-textarea validate" placeholder="Informações para as pessoas que desejam lhe dar carona. Por exemplo: racho gasolina, ando até 5 quarteirões para encontrar, etc."></textarea>
+                                    <label>Considerações</label>
                                     <form:errors path="user.sexo" cssStyle="color:red" />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col s12 m2 offset-m10">
-                                    <button type="submit" class="btn btn-block waves-effect waves-light blue darken-2"><i class="material-icons right">send</i>Enviar</button>
+                                <div class="col s12 m3 offset-m9">
+                                    <button type="submit" class="btn btn-block waves-effect waves-light blue darken-2"><i class="material-icons right">send</i>Oferecer Carona</button>
                                 </div>
                             </div>
                         </form>
