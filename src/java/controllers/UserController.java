@@ -7,8 +7,13 @@ package controllers;
 
 import bussiness.LoginFacebook;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import model.UserModel;
@@ -17,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -75,6 +81,7 @@ public class UserController extends AppController {
 
     /**
      * Entrou no na raiz do site irá ser rediercionado para pagina de login
+     *
      * @param request
      */
     @RequestMapping("/logout")
@@ -105,17 +112,30 @@ public class UserController extends AppController {
         System.out.println("on method Perfil");
         return "user/perfil";
     }
-    
+
     @RequestMapping("/atualiza-perfil")
-    public String atualizaPerfil(@Valid UserModel user, BindingResult resust) {
+    public String atualizaPerfil(@Valid UserModel userValidation, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         System.out.println("on method Perfil");
-        
-        if(resust.hasErrors()){
-            return "user/perfil";
+
+        if (result.hasErrors()) {
+            System.out.println("Erro: " + result.getFieldError().getField());
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+            return "redirect:/perfil";
+        } else {
+            String id_social = (String) request.getSession().getAttribute("id_social");
+            UserModel user = UserModel.loadBySocialId(id_social);
+            user.setEmail(userValidation.getEmail());
+            user.setNome(userValidation.getNome());
+            user.setTelefone(userValidation.getTelefone());
+            user.setSexo(userValidation.getSexo());
+            user.update();
+
+            request.getSession().setAttribute("email", user.getEmail());
+            request.getSession().setAttribute("name", user.getNome());
+            request.getSession().setAttribute("gender", user.getSexo());
+            request.getSession().setAttribute("phone", user.getTelefone());
         }
-        
-        //add Mensagem
-        return "user/perfil";
+        return "redirect:/perfil";
     }
 
     /**

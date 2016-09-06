@@ -15,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import org.hibernate.Query;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -29,19 +31,24 @@ public class UserModel implements Serializable {
     private Long id;
 
     @NotNull
+    @NotEmpty
     private String nome;
 
     @NotNull
+    @NotEmpty
     @Column(length = 10)
     private String sexo;
 
     @NotNull
+    @NotEmpty
     private String telefone;
 
     @Column(columnDefinition = "TEXT")
     private String url_imagem;
 
     @NotNull
+    @NotEmpty
+    @Pattern(regexp = ".+@.+\\.[a-z]+")
     private String email;
     private String id_social;
 

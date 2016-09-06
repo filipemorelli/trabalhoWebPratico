@@ -19,7 +19,7 @@
             </div>
         </li>
         <li class="bold"><a href="perfil" class="waves-effect waves-blue">Perfil</a></li>
-        <li class="bold"><a href="admin" class="waves-effect waves-blue">Histórico pessoal</a></li>
+        <li class="bold"><a href="admin" class="waves-effect waves-blue">Histórico de Carona</a></li>
         <li class="bold"><a href="#" class="waves-effect waves-blue">Pedir Carona</a></li>
         <li class="bold"><a href="" class="waves-effect waves-blue">Oferecer Carona</a></li>
         <li class="bold"><a href="sobre" class="waves-effect waves-blue">Sobre</a></li>

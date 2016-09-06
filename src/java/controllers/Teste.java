@@ -35,11 +35,7 @@ public class Teste {
     @RequestMapping("/db")
     public String createDB() {
         //Colocando configuracoes
-        UserModel user = new UserModel().load(1);
-        System.out.println(user.toString());
-        user.setTelefone("37373737");
-        user.update();
-        System.out.println(user.toString());
+        HibernateUtil.createDB();
         return "template";
     }
 }
