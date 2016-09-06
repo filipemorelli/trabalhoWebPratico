@@ -1,3 +1,6 @@
+<%@page import="model.UserModel"%>
+<%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -40,9 +43,53 @@
                 <div class="section">
 
                     <div class="row">
-                        <h3 class="col s12 light center header">texto.</h3>
+                        <h3 class="col s12 blue-text center header">Histórico de Carona.</h3>
                     </div>
                     
+                    <%
+                        List<UserModel> users = UserModel.loadAll();
+                        for(UserModel user: users){
+                            out.println(user.toString());
+                        }
+                        
+                    %>
+
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <img src="images/yuna.jpg" alt="" class="circle">
+                            <span class="title">Title</span>
+                            <p>First Line <br>
+                                Second Line
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">directions_car</i></a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle">folder</i>
+                            <span class="title">Title</span>
+                            <p>First Line <br>
+                                Second Line
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">directions_car</i></a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle green">insert_chart</i>
+                            <span class="title">Title</span>
+                            <p>First Line <br>
+                                Second Line
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">event_seat</i></a>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle red">play_arrow</i>
+                            <span class="title">Title</span>
+                            <p>First Line <br>
+                                Second Line
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">directions_car</i></a>
+                        </li>
+                    </ul>
+
+
                 </div>
             </div>
         </main>

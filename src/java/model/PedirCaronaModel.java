@@ -8,14 +8,22 @@ package model;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -28,16 +36,23 @@ public class PedirCaronaModel implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     @Column(columnDefinition = "TEXT")
-    private String considerecoes;
+    private String consideracoes;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "PedirCarona_User"))
     private UserModel user;
 
+    //saida da carona
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
-    private EnderecoModel endereco;
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "PedirCarona_EnderecoSaida"))
+    private EnderecoModel endereco_saida;
+    
+    //chegada da carona
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "PedirCarona_EnderecoChegada"))
+    private EnderecoModel endereco_chegada;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
@@ -51,16 +66,12 @@ public class PedirCaronaModel implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getConsideracoes() {
+        return consideracoes;
     }
 
-    public String getConsiderecoes() {
-        return considerecoes;
-    }
-
-    public void setConsiderecoes(String considerecoes) {
-        this.considerecoes = considerecoes;
+    public void setConsideracoes(String consideracoes) {
+        this.consideracoes = consideracoes;
     }
 
     public UserModel getUser() {
@@ -71,12 +82,36 @@ public class PedirCaronaModel implements Serializable {
         this.user = user;
     }
 
-    public EnderecoModel getEndereco() {
-        return endereco;
+    public EnderecoModel getEndereco_saida() {
+        return endereco_saida;
     }
 
-    public void setEndereco(EnderecoModel endereco) {
-        this.endereco = endereco;
+    public void setEndereco_saida(EnderecoModel endereco_saida) {
+        this.endereco_saida = endereco_saida;
+    }
+
+    public EnderecoModel getEndereco_chegada() {
+        return endereco_chegada;
+    }
+
+    public void setEndereco_chegada(EnderecoModel endereco_chegada) {
+        this.endereco_chegada = endereco_chegada;
+    }
+
+    public Calendar getCreated() {
+        return created;
+    }
+
+    public void setCreated(Calendar created) {
+        this.created = created;
+    }
+
+    public Calendar getModified() {
+        return modified;
+    }
+
+    public void setModified(Calendar modified) {
+        this.modified = modified;
     }
 
     public void save() {

@@ -75,4 +75,35 @@
     .input-field .prefix.active {
         color: #1976D2;
     }
+
+    /*tira logo do google em pesquisa*/
+    .pac-logo:after {
+        background: none !important;
+        height: 0 !important;
+    }
+    
+    .pac-item{
+        background: #FFF;
+    }
+    
+    .hdpi .pac-icon{
+        background-image: none;
+    }
+
+    .pac-icon-marker {
+        font-family: 'Material Icons';
+        font-size: 20px;
+        color: #1976D2;
+        margin-left: 0px;
+        margin-top: 0;
+        background-image: none;
+    }
+
+    .pac-icon-marker:before {
+        content: "place";
+    }
+
+    .pac-container, .datepicker.dropdown-menu {
+        z-index: 999999999 !important;
+    }
 </style>
