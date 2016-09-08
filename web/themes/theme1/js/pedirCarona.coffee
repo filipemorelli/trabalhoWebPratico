@@ -22,15 +22,18 @@ class PedirCarona
     
     onSubmit: () ->
         @formulario.submit =>
-            if @validaConsideracoes()
-                @toast("Digite suas considerações!")
-                false
             if @validaEnderecoSaida()
                 @toast("Digite o endereço de saída corretamente ou selecione/clique no endereço que aparecer automaticamente")
-                false
+                @enderecoSaida.focus()
+                return false
             if @validaEnderecoChegada()
                 @toast("Digite o endereço de chegada corretamente ou selecione/clique no endereço que aparecer automaticamente")
-                false
+                @enderecoChegada.focus()
+                return false
+            if @validaConsideracoes()
+                @toast("Digite suas considerações!")
+                @consideracoes.focus()
+                return false
             
             $.ajax
                 url: 'add-carona-ajax'
@@ -38,9 +41,10 @@ class PedirCarona
                 dataType: 'json'
                 data:
                     consideracoes: @consideracoes.val()
+
                     endereco_saida_street_number: @PedirCaronaSaida.street_number
                     endereco_saida_neighborhood: @PedirCaronaSaida.neighborhood
-                    endereco_saida_administrative_area_level_1: @PedirCaronaSaida.administrative_area_level_1
+                    endereco_saida_route: @PedirCaronaSaida.route
                     endereco_saida_locality: @PedirCaronaSaida.locality
                     endereco_saida_administrative_area_level_1: @PedirCaronaSaida.administrative_area_level_1
                     endereco_saida_country: @PedirCaronaSaida.country
@@ -50,27 +54,33 @@ class PedirCarona
 
                     endereco_chegada_street_number: @PedirCaronaChegada.street_number
                     endereco_chegada_neighborhood: @PedirCaronaChegada.neighborhood
-                    endereco_chegada_administrative_area_level_1: @PedirCaronaChegada.administrative_area_level_1
+                    endereco_chegada_route: @PedirCaronaChegada.route
                     endereco_chegada_locality: @PedirCaronaChegada.locality
                     endereco_chegada_administrative_area_level_1: @PedirCaronaChegada.administrative_area_level_1
                     endereco_chegada_country: @PedirCaronaChegada.country
                     endereco_chegada_postal_code: @PedirCaronaChegada.postal_code
                     endereco_chegada_lat: @PedirCaronaChegada.lat
                     endereco_chegada_lng: @PedirCaronaChegada.lng
+                
+                beforeSend: () ->
+                    $("#loader").fadeIn("slow")
+                success: (data) =>
+                    @toast data.msg
+                    @formulario[0].reset()
+                complete: () ->
+                    $("#loader").fadeOut("slow")
 
-                success: (data) ->
-                    console.log(data);
             false
 
     validaConsideracoes: () ->
         @consideracoes.val().length is 0
     validaEnderecoSaida: () ->
-        @enderecoSaida.length is 0
+        @enderecoSaida.val().length is 0
     validaEnderecoChegada: () ->
-        @enderecoChegada.length is 0
+        @enderecoChegada.val().length is 0
 
     toast: (msg) ->
-        Materialize.toast msg
+        Materialize.toast msg , 3000
 
     initAutocomplete: () ->
         # Create the autocomplete object, restricting the search to geographical

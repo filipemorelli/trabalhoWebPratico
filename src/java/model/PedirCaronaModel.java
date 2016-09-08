@@ -98,22 +98,6 @@ public class PedirCaronaModel implements Serializable {
         this.endereco_chegada = endereco_chegada;
     }
 
-    public Calendar getCreated() {
-        return created;
-    }
-
-    public void setCreated(Calendar created) {
-        this.created = created;
-    }
-
-    public Calendar getModified() {
-        return modified;
-    }
-
-    public void setModified(Calendar modified) {
-        this.modified = modified;
-    }
-
     public void save() {
         HibernateUtil.getSession().beginTransaction();
         HibernateUtil.getSession().save(this);

@@ -85,35 +85,6 @@
         <%@include file="../layout/floatButtonAdmin.jsp" %>
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/admin/configuracaoJs.jsp" %>
-        <script>
-            (function ($, Materialize) {
-                $(document).ready(function () {
-                    $("#form-perfil").on("submit", function () {
-
-                        if ($("#nome").val().length === 0) {
-                            Materialize.toast("Digite seu nome");
-                            return false;
-                        }
-
-                        if ($("#telefone").val().length === 0) {
-                            Materialize.toast("Digite seu telefone");
-                            return false;
-                        }
-
-                        if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($("#email").val().length)) {
-                            Materialize.toast("Digite seu email corretamente");
-                            return false;
-                        }
-
-                        if ($("#sexo").val() === "") {
-                            Materialize.toast("Selecione o sexo!");
-                            return false;
-                        }
-
-                        return true;
-                    });
-                });
-            })(window.jQuery, Materialize);
-        </script>
+        <script src="<c:url value='/themes/theme1/js/perfil.js' />" charset="utf-8"></script>
     </body>
 </html>

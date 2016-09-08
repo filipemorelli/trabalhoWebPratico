@@ -30,7 +30,7 @@
             <div class="container">
                 <div class="section">
                     <div class="row">
-                        <form id="form-pedir-carona" class="col s12" method="POST" action="pedidoCarona" onsubmit="return false;">
+                        <form id="form-pedir-carona" class="col s12" method="POST" action="pedidoCarona">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">place</i>
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">create</i>
-                                    <textarea id="consideracoes" class="materialize-textarea validate" placeholder="Informações para as pessoas que desejam lhe dar carona. Por exemplo: racho gasolina, ando até 5 quarteirões para encontrar, etc."></textarea>
+                                    <textarea id="consideracoes" class="materialize-textarea validate" placeholder="Informações para as pessoas que desejam lhe dar carona. Por exemplo: racho gasolina, ando até 5 quarteirões para encontrar, etc." required></textarea>
                                     <label>Considerações</label>
                                     <form:errors path="user.sexo" cssStyle="color:red" />
                                 </div>
