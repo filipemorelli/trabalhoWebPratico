@@ -70,6 +70,7 @@
         this.sexo.focus();
         return false;
       }
+      $("#loader").fadeIn("slow");
       return true;
     };
 

@@ -23,7 +23,6 @@
         <li class="bold"><a href="admin" class="waves-effect waves-blue">Histórico de Carona</a></li>
         <li class="bold"><a href="pedir-carona" class="waves-effect waves-blue">Pedir Carona</a></li>
         <li class="bold"><a href="oferecer-carona" class="waves-effect waves-blue">Oferecer Carona</a></li>
-        <li class="bold"><a href="sobre" class="waves-effect waves-blue">Sobre</a></li>
         <li class="bold"><a href="termos-de-uso" class="waves-effect waves-blue">Termos de uso</a></li>
         <li class="bold"><a href="politicas-de-privacidade" class="waves-effect waves-blue">Politicas de privacidade</a></li>
         <li class="bold"><a href="logout" class="waves-effect waves-blue">Sair</a></li>

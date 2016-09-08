@@ -46,6 +46,7 @@ class Perfil
             @toast("Digite seu nome")
             @sexo.focus()
             return false
+        $("#loader").fadeIn "slow"
         true
     onSubmitForm: () ->
         @formulario.submit =>

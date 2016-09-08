@@ -18,9 +18,6 @@
                     <div class='row'>
                         <h4 class="header col s12 light">Somos um serviço de carona feito com Java e Google Design.</h4>
                     </div>
-                    <div class="row center">
-                        <a href="#" id="download-button" class="btn-large blue waves-effect waves-light">Get Started</a>
-                    </div>
 
                     <br>
 

@@ -11,8 +11,8 @@
     </a>
     <ul>
         <li><a href="logout" class="btn-floating orange tooltipped" data-position="left" data-tooltip="Sair"><i class="material-icons">exit_to_app</i></a></li>
-        <li><a href="#" class="btn-floating orange tooltipped" data-position="left" data-tooltip="Oferecer carona"><i class="material-icons">directions_car</i></a></li>
-        <li><a href="#" class="btn-floating orange tooltipped" data-position="left" data-tooltip="Pedir carona"><i class="material-icons">event_seat</i></a></li>
+        <li><a href="oferecer-carona" class="btn-floating orange tooltipped" data-position="left" data-tooltip="Oferecer carona"><i class="material-icons">directions_car</i></a></li>
+        <li><a href="pedir-carona" class="btn-floating orange tooltipped" data-position="left" data-tooltip="Pedir carona"><i class="material-icons">event_seat</i></a></li>
         <li><a href="perfil" class="btn-floating orange tooltipped" data-position="left" data-tooltip="Perfil"><i class="material-icons">person</i></a></li>
     </ul>
 </div>
