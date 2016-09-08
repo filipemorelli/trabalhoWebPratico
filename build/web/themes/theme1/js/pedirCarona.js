@@ -57,7 +57,7 @@
             return false;
           }
           $.ajax({
-            url: 'add-carona-ajax',
+            url: 'add-pedido-carona-ajax',
             method: 'POST',
             dataType: 'json',
             data: {

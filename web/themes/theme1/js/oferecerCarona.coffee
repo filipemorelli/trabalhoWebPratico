@@ -1,13 +1,13 @@
-class PedirCarona 
-    formulario: $("#form-pedir-carona")
+class OferecerCarona 
+    formulario: $("#form-oferecer-carona")
     consideracoes: $("#consideracoes")
     enderecoSaida: $("#endereco-saida")
     enderecoChegada: $("#endereco-chegada")
     placeSearch: null
     autocompleteSaida: null
     autocompleteChegada: null
-    PedirCaronaSaida: {}
-    PedirCaronaChegada: {}
+    OferecerCaronaSaida: {}
+    OferecerCaronaChegada: {}
     componentForm:
         street_number: 'short_name', #numero
         route: 'long_name', #endereco
@@ -36,31 +36,31 @@ class PedirCarona
                 return false
             
             $.ajax
-                url: 'add-pedido-carona-ajax'
+                url: 'add-oferta-carona-ajax'
                 method: 'POST'
                 dataType: 'json'
                 data:
                     consideracoes: @consideracoes.val()
 
-                    endereco_saida_street_number: @PedirCaronaSaida.street_number
-                    endereco_saida_neighborhood: @PedirCaronaSaida.neighborhood
-                    endereco_saida_route: @PedirCaronaSaida.route
-                    endereco_saida_locality: @PedirCaronaSaida.locality
-                    endereco_saida_administrative_area_level_1: @PedirCaronaSaida.administrative_area_level_1
-                    endereco_saida_country: @PedirCaronaSaida.country
-                    endereco_saida_postal_code: @PedirCaronaSaida.postal_code
-                    endereco_saida_lat: @PedirCaronaSaida.lat
-                    endereco_saida_lng: @PedirCaronaSaida.lng
+                    endereco_saida_street_number: @OferecerCaronaSaida.street_number
+                    endereco_saida_neighborhood: @OferecerCaronaSaida.neighborhood
+                    endereco_saida_route: @OferecerCaronaSaida.route
+                    endereco_saida_locality: @OferecerCaronaSaida.locality
+                    endereco_saida_administrative_area_level_1: @OferecerCaronaSaida.administrative_area_level_1
+                    endereco_saida_country: @OferecerCaronaSaida.country
+                    endereco_saida_postal_code: @OferecerCaronaSaida.postal_code
+                    endereco_saida_lat: @OferecerCaronaSaida.lat
+                    endereco_saida_lng: @OferecerCaronaSaida.lng
 
-                    endereco_chegada_street_number: @PedirCaronaChegada.street_number
-                    endereco_chegada_neighborhood: @PedirCaronaChegada.neighborhood
-                    endereco_chegada_route: @PedirCaronaChegada.route
-                    endereco_chegada_locality: @PedirCaronaChegada.locality
-                    endereco_chegada_administrative_area_level_1: @PedirCaronaChegada.administrative_area_level_1
-                    endereco_chegada_country: @PedirCaronaChegada.country
-                    endereco_chegada_postal_code: @PedirCaronaChegada.postal_code
-                    endereco_chegada_lat: @PedirCaronaChegada.lat
-                    endereco_chegada_lng: @PedirCaronaChegada.lng
+                    endereco_chegada_street_number: @OferecerCaronaChegada.street_number
+                    endereco_chegada_neighborhood: @OferecerCaronaChegada.neighborhood
+                    endereco_chegada_route: @OferecerCaronaChegada.route
+                    endereco_chegada_locality: @OferecerCaronaChegada.locality
+                    endereco_chegada_administrative_area_level_1: @OferecerCaronaChegada.administrative_area_level_1
+                    endereco_chegada_country: @OferecerCaronaChegada.country
+                    endereco_chegada_postal_code: @OferecerCaronaChegada.postal_code
+                    endereco_chegada_lat: @OferecerCaronaChegada.lat
+                    endereco_chegada_lng: @OferecerCaronaChegada.lng
                 
                 beforeSend: () ->
                     $("#loader").fadeIn("slow")
@@ -109,10 +109,10 @@ class PedirCarona
             addressType = place.address_components[i].types[0]
             if @componentForm[addressType]
                 val = place.address_components[i][@componentForm[addressType]]
-                @PedirCaronaSaida[addressType] = val
+                @OferecerCaronaSaida[addressType] = val
             i++
-        @PedirCaronaSaida['lat'] = place.geometry.location.lat();
-        @PedirCaronaSaida['lng'] = place.geometry.location.lng();
+        @OferecerCaronaSaida['lat'] = place.geometry.location.lat();
+        @OferecerCaronaSaida['lng'] = place.geometry.location.lng();
 
     fillInAddressChegada: () =>
         # Get the place details from the autocomplete object.
@@ -123,10 +123,10 @@ class PedirCarona
             addressType = place.address_components[i].types[0]
             if @componentForm[addressType]
                 val = place.address_components[i][@componentForm[addressType]]
-                @PedirCaronaChegada[addressType] = val
+                @OferecerCaronaChegada[addressType] = val
             i++
-        @PedirCaronaChegada['lat'] = place.geometry.location.lat();
-        @PedirCaronaChegada['lng'] = place.geometry.location.lng();
+        @OferecerCaronaChegada['lat'] = place.geometry.location.lat();
+        @OferecerCaronaChegada['lng'] = place.geometry.location.lng();
     
     geolocate: ()->
         if navigator.geolocation
@@ -141,4 +141,4 @@ class PedirCarona
                 
                 @autocomplete.setBounds circle.getBounds()
 
-window.PedirCarona = new PedirCarona()
+window.OferecerCarona = new OferecerCarona()

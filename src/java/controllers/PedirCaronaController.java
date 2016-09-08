@@ -36,24 +36,7 @@ public class PedirCaronaController {
         return "pedirCarona/pedirCarona";
     }
 
-    @RequestMapping("add-carona")
-    public void addCarona(HttpServletRequest request, HttpServletResponse response) throws JSONException {
-        this.setHeader(response);
-
-        try {
-            try (ServletOutputStream pw = response.getOutputStream()) {
-                JSONObject json = new JSONObject();
-                json.accumulate("msg", "ok");
-                json.accumulate("id", request.getParameter("id"));
-                pw.print(json.toString());
-                pw.flush();
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(PedirCaronaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @RequestMapping("add-carona-ajax")
+    @RequestMapping("add-pedido-carona-ajax")
     public void addCaronaAjax(@Valid PedirCaronaModel pedirCaronaModel, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws JSONException {
 
         this.setHeader(response);

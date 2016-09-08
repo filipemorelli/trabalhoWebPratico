@@ -30,34 +30,31 @@
             <div class="container">
                 <div class="section">
                     <div class="row">
-                        <form id="form-perfil" class="col s12" method="POST" action="pedidoCarona">
+                        <form id="form-oferecer-carona" class="col s12" method="POST">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">place</i>
-                                    <input id="endereco-saida" name="endereco-saida" type="text" class="validate" value="<%= session.getAttribute("name")%>" required>
+                                    <input id="endereco-saida" name="endereco-saida" type="text" class="validate" required>
                                     <label for="icon_prefix">Endereço de saída</label>
-                                    <form:errors path="user.nome" cssStyle="color:red" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">place</i>
-                                    <input id="endereco-chegada" name="endereco-chegada" type="text" class="validate" value="<%= session.getAttribute("name")%>" required>
+                                    <input id="endereco-chegada" name="endereco-chegada" type="text" class="validate" required>
                                     <label for="icon_prefix">Endereço de chegada</label>
-                                    <form:errors path="user.nome" cssStyle="color:red" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">create</i>
-                                    <textarea class="materialize-textarea validate" placeholder="Informações para as pessoas que desejam lhe dar carona. Por exemplo: racho gasolina, ando até 5 quarteirões para encontrar, etc."></textarea>
+                                    <textarea id="consideracoes" class="materialize-textarea validate" placeholder="Informações para as pessoas que desejam lhe dar carona. Por exemplo: racho gasolina, ando até 5 quarteirões para encontrar, etc." required></textarea>
                                     <label>Considerações</label>
-                                    <form:errors path="user.sexo" cssStyle="color:red" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s12 m3 offset-m9">
-                                    <button type="submit" class="btn btn-block waves-effect waves-light blue darken-2"><i class="material-icons right">send</i>Oferecer Carona</button>
+                                    <button type="submit" class="btn btn-block blue waves-effect waves-light darken-2"><i class="material-icons right">send</i>Oferecer Carona</button>
                                 </div>
                             </div>
                         </form>
@@ -69,35 +66,7 @@
         <%@include file="../layout/floatButtonAdmin.jsp" %>
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/admin/configuracaoJs.jsp" %>
-        <script>
-            (function ($, Materialize) {
-                $(document).ready(function () {
-                    $("#form-perfil").on("submit", function () {
-
-                        if ($("#nome").val().length === 0) {
-                            Materialize.toast("Digite seu nome");
-                            return false;
-                        }
-
-                        if ($("#telefone").val().length === 0) {
-                            Materialize.toast("Digite seu telefone");
-                            return false;
-                        }
-
-                        if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($("#email").val().length)) {
-                            Materialize.toast("Digite seu email corretamente");
-                            return false;
-                        }
-
-                        if ($("#sexo").val() === "") {
-                            Materialize.toast("Selecione o sexo!");
-                            return false;
-                        }
-
-                        return true;
-                    });
-                });
-            })(window.jQuery, Materialize);
-        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHMIcsEYQt1RoizBuH--1bWaWFNUcqM2I&signed_in=true&libraries=places&callback=OferecerCarona.initAutocomplete" async defer></script>
+        <script src="<c:url value='/themes/theme1/js/oferecerCarona.js' />" charset="utf-8"></script>
     </body>
 </html>

@@ -10,12 +10,14 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -28,16 +30,23 @@ public class OferecerCaronaModel implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     @Column(columnDefinition = "TEXT")
-    private String considerecoes;
+    private String consideracoes;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_User"))
     private UserModel user;
 
+    //saida da carona
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
-    private EnderecoModel endereco;
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_EnderecoSaida"))
+    private EnderecoModel endereco_saida;
+    
+    //chegada da carona
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_EnderecoChegada"))
+    private EnderecoModel endereco_chegada;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
@@ -51,16 +60,12 @@ public class OferecerCaronaModel implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getConsideracoes() {
+        return consideracoes;
     }
 
-    public String getConsiderecoes() {
-        return considerecoes;
-    }
-
-    public void setConsiderecoes(String considerecoes) {
-        this.considerecoes = considerecoes;
+    public void setConsideracoes(String consideracoes) {
+        this.consideracoes = consideracoes;
     }
 
     public UserModel getUser() {
@@ -71,20 +76,20 @@ public class OferecerCaronaModel implements Serializable {
         this.user = user;
     }
 
-    public EnderecoModel getEndereco() {
-        return endereco;
+    public EnderecoModel getEndereco_saida() {
+        return endereco_saida;
     }
 
-    public void setEndereco(EnderecoModel endereco) {
-        this.endereco = endereco;
+    public void setEndereco_saida(EnderecoModel endereco_saida) {
+        this.endereco_saida = endereco_saida;
     }
 
-    public Calendar getModified() {
-        return modified;
+    public EnderecoModel getEndereco_chegada() {
+        return endereco_chegada;
     }
 
-    public void setModified(Calendar modified) {
-        this.modified = modified;
+    public void setEndereco_chegada(EnderecoModel endereco_chegada) {
+        this.endereco_chegada = endereco_chegada;
     }
 
     public void save() {
@@ -107,14 +112,14 @@ public class OferecerCaronaModel implements Serializable {
 
     public OferecerCaronaModel load(long id) {
         HibernateUtil.getSession().beginTransaction();
-        OferecerCaronaModel oferecerCaronaModel = (OferecerCaronaModel) HibernateUtil.getSession().load(OferecerCaronaModel.class, id);
+        OferecerCaronaModel pedirCaronaModel = (OferecerCaronaModel) HibernateUtil.getSession().load(OferecerCaronaModel.class, id);
         HibernateUtil.getSession().getTransaction().commit();
-        return oferecerCaronaModel;
+        return pedirCaronaModel;
     }
 
     public static List<OferecerCaronaModel> loadAll(long id) {
         HibernateUtil.getSession().beginTransaction();
-        List<OferecerCaronaModel> lista = HibernateUtil.getSession().createQuery("select oc from oferecercarona as oc").list();
+        List<OferecerCaronaModel> lista = HibernateUtil.getSession().createQuery("select pc from pedircarona as pc").list();
         HibernateUtil.getSession().getTransaction().commit();
         return lista;
     }
