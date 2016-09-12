@@ -65,10 +65,15 @@ class OferecerCarona
                 beforeSend: () ->
                     $("#loader").fadeIn("slow")
                 success: (data) =>
-                    @toast data.msg
-                    @formulario[0].reset()
+                    if data.status
+                        @toast data.msg
+                        @formulario[0].reset()
+                    else
+                        @toast "Preencha o formulário corretamente"
                 complete: () ->
                     $("#loader").fadeOut("slow")
+                error: () =>
+                    @toast "Preencha o formulário corretamente"
 
             false
 

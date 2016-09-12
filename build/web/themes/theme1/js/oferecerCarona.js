@@ -85,11 +85,18 @@
               return $("#loader").fadeIn("slow");
             },
             success: function(data) {
-              _this.toast(data.msg);
-              return _this.formulario[0].reset();
+              if (data.status) {
+                _this.toast(data.msg);
+                return _this.formulario[0].reset();
+              } else {
+                return _this.toast("Preencha o formulário corretamente");
+              }
             },
             complete: function() {
               return $("#loader").fadeOut("slow");
+            },
+            error: function() {
+              return _this.toast("Preencha o formulário corretamente");
             }
           });
           return false;
