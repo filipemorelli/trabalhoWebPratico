@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,7 +17,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StringType;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -142,8 +147,8 @@ public class UserModel implements Serializable {
         HibernateUtil.getSession().update(this);
         HibernateUtil.getSession().getTransaction().commit();
     }
-    
-    public void saveOrUpdate(){
+
+    public void saveOrUpdate() {
         HibernateUtil.getSession().beginTransaction();
         HibernateUtil.getSession().saveOrUpdate(this);
         HibernateUtil.getSession().getTransaction().commit();
@@ -188,4 +193,18 @@ public class UserModel implements Serializable {
         return !existUser;
     }
 
+    public static List<CaronaModel> historicoCarona(String idSocial) {
+        Long idUser = idSocialToID(idSocial);
+
+        HibernateUtil.getSession().beginTransaction();
+        Query query = HibernateUtil.getSession().createQuery("select c from carona as c where c.user.id = :idUser order by c.modified desc");
+        query.setParameter("idUser", idUser);
+        HibernateUtil.getSession().getTransaction().commit();
+        return query.list();
+    }
+
+    private static Long idSocialToID(String idSocial) {
+        UserModel u = loadBySocialId(idSocial);
+        return u.getId();
+    }
 }

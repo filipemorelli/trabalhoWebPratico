@@ -9,19 +9,9 @@ package controllers;
  *
  * @author asus
  */
-import model.EnderecoModel;
 import model.HibernateUtil;
-import model.OferecerCaronaModel;
-import model.PedirCaronaModel;
-import model.UserModel;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class Teste {

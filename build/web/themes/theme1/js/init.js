@@ -12,6 +12,7 @@
         $('.button-collapse').sideNav({'edge': 'left'});
         $('.datepicker').pickadate({selectYears: 20});
         $('select').not('.disabled').material_select();
+        //$(".modal-trigger").leanModal();
         $('input.autocomplete').autocomplete({
             data: {"Apple": null, "Microsoft": null, "Google": 'http://placehold.it/250x250'}
         });
@@ -36,6 +37,15 @@
         });
 
         $('.chips').material_chip();
+        
+        $.ajaxSetup({
+            beforeSend: function(){
+                $("#loader").fadeIn("slow")
+            },
+            complete: function(){
+                $("#loader").fadeOut("slow")
+            }
+        })
 
     }); // end of document ready
 })(jQuery); // end of jQuery name space

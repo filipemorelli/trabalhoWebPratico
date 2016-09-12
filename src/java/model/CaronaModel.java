@@ -23,8 +23,8 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author Filipe
  */
-@Entity(name = "pedircarona")
-public class PedirCaronaModel implements Serializable {
+@Entity(name = "carona")
+public class CaronaModel implements Serializable {
 
     @Id
     @GeneratedValue
@@ -35,17 +35,17 @@ public class PedirCaronaModel implements Serializable {
     private String consideracoes;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "PedirCarona_User"))
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_User"))
     private UserModel user;
 
     //saida da carona
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "PedirCarona_EnderecoSaida"))
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_EnderecoSaida"))
     private EnderecoModel endereco_saida;
     
     //chegada da carona
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "PedirCarona_EnderecoChegada"))
+    @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_EnderecoChegada"))
     private EnderecoModel endereco_chegada;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -55,6 +55,8 @@ public class PedirCaronaModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar modified;
+    
+    private String tipo;
 
     public Long getId() {
         return id;
@@ -91,6 +93,14 @@ public class PedirCaronaModel implements Serializable {
     public void setEndereco_chegada(EnderecoModel endereco_chegada) {
         this.endereco_chegada = endereco_chegada;
     }
+  
+    public String setTipo_carona(String tipo) {
+        return this.tipo = tipo;
+    }
+    
+    public String getTipo_carona() {
+        return this.tipo;
+    }
 
     public void save() {
         HibernateUtil.getSession().beginTransaction();
@@ -110,16 +120,16 @@ public class PedirCaronaModel implements Serializable {
         HibernateUtil.getSession().getTransaction().commit();
     }
 
-    public PedirCaronaModel load(long id) {
+    public CaronaModel load(long id) {
         HibernateUtil.getSession().beginTransaction();
-        PedirCaronaModel pedirCaronaModel = (PedirCaronaModel) HibernateUtil.getSession().load(PedirCaronaModel.class, id);
+        CaronaModel carona = (CaronaModel) HibernateUtil.getSession().load(CaronaModel.class, id);
         HibernateUtil.getSession().getTransaction().commit();
-        return pedirCaronaModel;
+        return carona;
     }
 
-    public static List<PedirCaronaModel> loadAll(long id) {
+    public static List<CaronaModel> loadAll(long id) {
         HibernateUtil.getSession().beginTransaction();
-        List<PedirCaronaModel> lista = HibernateUtil.getSession().createQuery("select pc from pedircarona as pc").list();
+        List<CaronaModel> lista = HibernateUtil.getSession().createQuery("select pc from pedircarona as pc").list();
         HibernateUtil.getSession().getTransaction().commit();
         return lista;
     }

@@ -81,9 +81,6 @@
               endereco_chegada_lat: _this.OferecerCaronaChegada.lat,
               endereco_chegada_lng: _this.OferecerCaronaChegada.lng
             },
-            beforeSend: function() {
-              return $("#loader").fadeIn("slow");
-            },
             success: function(data) {
               if (data.status) {
                 _this.toast(data.msg);
@@ -91,9 +88,6 @@
               } else {
                 return _this.toast("Preencha o formulário corretamente");
               }
-            },
-            complete: function() {
-              return $("#loader").fadeOut("slow");
             },
             error: function() {
               return _this.toast("Preencha o formulário corretamente");

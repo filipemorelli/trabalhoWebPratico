@@ -61,17 +61,13 @@ class OferecerCarona
                     endereco_chegada_postal_code: @OferecerCaronaChegada.postal_code
                     endereco_chegada_lat: @OferecerCaronaChegada.lat
                     endereco_chegada_lng: @OferecerCaronaChegada.lng
-                
-                beforeSend: () ->
-                    $("#loader").fadeIn("slow")
+
                 success: (data) =>
                     if data.status
                         @toast data.msg
                         @formulario[0].reset()
                     else
                         @toast "Preencha o formulário corretamente"
-                complete: () ->
-                    $("#loader").fadeOut("slow")
                 error: () =>
                     @toast "Preencha o formulário corretamente"
 

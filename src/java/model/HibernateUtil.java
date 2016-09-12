@@ -30,8 +30,7 @@ public class HibernateUtil {
             ANNOTATION_CONFIGURATION = new AnnotationConfiguration();
             ANNOTATION_CONFIGURATION.addAnnotatedClass(UserModel.class);
             ANNOTATION_CONFIGURATION.addAnnotatedClass(EnderecoModel.class);
-            ANNOTATION_CONFIGURATION.addAnnotatedClass(OferecerCaronaModel.class);
-            ANNOTATION_CONFIGURATION.addAnnotatedClass(PedirCaronaModel.class);
+            ANNOTATION_CONFIGURATION.addAnnotatedClass(CaronaModel.class);
             ANNOTATION_CONFIGURATION.configure();
             
             SESSION = ANNOTATION_CONFIGURATION.buildSessionFactory().openSession();

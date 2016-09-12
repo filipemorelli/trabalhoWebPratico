@@ -81,15 +81,16 @@
               endereco_chegada_lat: _this.PedirCaronaChegada.lat,
               endereco_chegada_lng: _this.PedirCaronaChegada.lng
             },
-            beforeSend: function() {
-              return $("#loader").fadeIn("slow");
-            },
             success: function(data) {
-              _this.toast(data.msg);
-              return _this.formulario[0].reset();
+              if (data.status) {
+                _this.toast(data.msg);
+                return _this.formulario[0].reset();
+              } else {
+                return _this.toast("Preencha o formulário corretamente");
+              }
             },
-            complete: function() {
-              return $("#loader").fadeOut("slow");
+            error: function() {
+              return _this.toast("Preencha o formulário corretamente");
             }
           });
           return false;

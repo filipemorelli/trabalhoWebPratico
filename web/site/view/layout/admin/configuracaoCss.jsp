@@ -36,6 +36,12 @@
         display: block;
         width: 100%;
     }
+    #map-route.modal .modal-content{
+        padding: 0;
+    }
+    .collection .collection-item.avatar{
+        cursor: pointer;
+    }
     .waves-effect.waves-blue .waves-ripple {
         background-color: rgba(33, 150, 243, 0.65)
     }

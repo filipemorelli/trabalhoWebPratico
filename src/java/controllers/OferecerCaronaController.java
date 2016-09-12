@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import com.sun.org.apache.bcel.internal.generic.L2D;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,9 +13,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import model.CaronaModel;
 import model.EnderecoModel;
-import model.OferecerCaronaModel;
-import model.PedirCaronaModel;
 import model.UserModel;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +36,7 @@ public class OferecerCaronaController {
     }
 
     @RequestMapping("add-oferta-carona-ajax")
-    public void addCaronaAjax(@Valid OferecerCaronaModel oferecerCaronaModel, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws JSONException {
+    public void addCaronaAjax(@Valid CaronaModel caronaModel, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws JSONException {
 
         this.setHeader(response);
 
@@ -52,11 +52,12 @@ public class OferecerCaronaController {
                     EnderecoModel enderecoChegada = this.getIdEnderecoChegada(request);
                     String consideracoes = request.getParameter("consideracoes");
 
-                    oferecerCaronaModel.setConsideracoes(consideracoes);
-                    oferecerCaronaModel.setEndereco_chegada(enderecoChegada);
-                    oferecerCaronaModel.setEndereco_saida(enderecoSaida);
-                    oferecerCaronaModel.setUser(UserModel.loadBySocialId((String) request.getSession().getAttribute("id_social")));
-                    oferecerCaronaModel.save();
+                    caronaModel.setConsideracoes(consideracoes);
+                    caronaModel.setTipo_carona("oferecer");
+                    caronaModel.setEndereco_chegada(enderecoChegada);
+                    caronaModel.setEndereco_saida(enderecoSaida);
+                    caronaModel.setUser(UserModel.loadBySocialId((String) request.getSession().getAttribute("id_social")));
+                    caronaModel.save();
 
                     json.accumulate("status", true);
                     json.accumulate("msg", "Oferta de carona inserida com sucesso");
@@ -65,7 +66,34 @@ public class OferecerCaronaController {
                 pw.flush();
             }
         } catch (IOException ex) {
-            Logger.getLogger(PedirCaronaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OferecerCaronaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @RequestMapping("excluir-oferta-carona")
+    public void excluirOfertaCarona(HttpServletRequest request, HttpServletResponse response) {
+
+        this.setHeader(response);
+
+        JSONObject json = new JSONObject();
+        String id = request.getParameter("id");
+        try {
+            try (ServletOutputStream pw = response.getOutputStream()) {
+                CaronaModel c = new CaronaModel();
+                c = c.load(Long.parseLong(id));
+                c.delete();
+                json.accumulate("status", true);
+                json.accumulate("msg", "Carona excluida com sucesso!");
+                pw.print(json.toString());
+                pw.flush();
+            }
+        } catch (Exception e) {
+            try {
+                json.accumulate("status", false);
+                json.accumulate("msg", "Ocorreu um erro ao excluir oferta de carona");
+            } catch (JSONException ex) {
+                Logger.getLogger(OferecerCaronaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
