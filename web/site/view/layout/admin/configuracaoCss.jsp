@@ -46,6 +46,9 @@
         position: fixed;
         top: 1rem;
     }
+    .ajust-button{
+        margin: 15px 0;
+    }
     .result-search{
         margin-top: 15px;
     }

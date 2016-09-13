@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.Query;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -42,7 +43,7 @@ public class CaronaModel implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_EnderecoSaida"))
     private EnderecoModel endereco_saida;
-    
+
     //chegada da carona
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", foreignKey = @ForeignKey(name = "OferecerCarona_EnderecoChegada"))
@@ -55,7 +56,7 @@ public class CaronaModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Calendar modified;
-    
+
     private String tipo;
 
     public Long getId() {
@@ -93,11 +94,11 @@ public class CaronaModel implements Serializable {
     public void setEndereco_chegada(EnderecoModel endereco_chegada) {
         this.endereco_chegada = endereco_chegada;
     }
-  
+
     public String setTipo_carona(String tipo) {
         return this.tipo = tipo;
     }
-    
+
     public String getTipo_carona() {
         return this.tipo;
     }
@@ -127,10 +128,22 @@ public class CaronaModel implements Serializable {
         return carona;
     }
 
-    public static List<CaronaModel> loadAll(long id) {
+    public static List<CaronaModel> loadAll() {
         HibernateUtil.getSession().beginTransaction();
-        List<CaronaModel> lista = HibernateUtil.getSession().createQuery("select pc from pedircarona as pc").list();
+        List<CaronaModel> lista = HibernateUtil.getSession().createQuery("select c from carona as c").list();
         HibernateUtil.getSession().getTransaction().commit();
         return lista;
+    }
+
+    public static List<CaronaModel> loadSearch(String bairro, String cidade, String estado, String tipo, Long idUser) {
+        HibernateUtil.getSession().beginTransaction();
+        Query query = HibernateUtil.getSession().createQuery("SELECT c FROM carona as c WHERE c.tipo = :tipo AND (c.endereco_chegada.bairro = :bairro AND c.endereco_chegada.cidade = :cidade AND c.endereco_chegada.estado = :estado) AND c.user.id != :idUser");
+        query.setParameter("tipo", tipo);
+        query.setParameter("bairro", bairro);
+        query.setParameter("cidade", cidade);
+        query.setParameter("estado", estado);
+        query.setParameter("idUser", idUser);
+        HibernateUtil.getSession().getTransaction().commit();
+        return query.list();
     }
 }
