@@ -102,6 +102,12 @@ public class UserController extends AppController {
         return "user/admin";
     }
 
+    @RequestMapping("/pesquisar-carona")
+    public String pesquisarCarona() {
+        System.out.println("on method Pesquisar Carona");
+        return "user/pesquisa-carona";
+    }
+
     /**
      * Termos de uso do sistema ou site por parte do usuário
      *

@@ -40,26 +40,25 @@ public class PedirCaronaController {
     public void addCaronaAjax(@Valid CaronaModel caronaModel, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws JSONException {
 
         this.setHeader(response);
-
         try {
             try (ServletOutputStream pw = response.getOutputStream()) {
                 JSONObject json = new JSONObject();
 
-                if (result.hasFieldErrors("consideracoes")) {
+                if (result.hasFieldErrors("consideracoes") || !this.validaEndereco(request)) {
                     json.accumulate("status", false);
-                    json.accumulate("msg", "Necessário digitar as considerações");
+                    json.accumulate("msg", "Necessário corretamente os dados");
                 } else {
                     EnderecoModel enderecoSaida = this.getIdEnderecoSaida(request);
                     EnderecoModel enderecoChegada = this.getIdEnderecoChegada(request);
                     String consideracoes = request.getParameter("consideracoes");
-                    
+
                     caronaModel.setConsideracoes(consideracoes);
                     caronaModel.setTipo_carona("pedir");
                     caronaModel.setEndereco_chegada(enderecoChegada);
                     caronaModel.setEndereco_saida(enderecoSaida);
                     caronaModel.setUser(UserModel.loadBySocialId((String) request.getSession().getAttribute("id_social")));
                     caronaModel.save();
-                    
+
                     json.accumulate("status", true);
                     json.accumulate("msg", "Pedido de carona inserido com sucesso");
                 }
@@ -70,7 +69,7 @@ public class PedirCaronaController {
             Logger.getLogger(PedirCaronaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @RequestMapping("excluir-pedido-carona")
     public void excluirOfertaCarona(HttpServletRequest request, HttpServletResponse response) {
 
@@ -136,7 +135,7 @@ public class PedirCaronaController {
 
         return this.setEndereco(enderecoSaida, numeroSaida, bairroSaida, cidadeSaida, estadoSaida, latitudeSaida, longitudeSaida, cepSaida);
     }
-    
+
     private EnderecoModel getIdEnderecoChegada(HttpServletRequest request) {
         String enderecoSaida = request.getParameter("endereco_chegada_route");
         String numeroSaida = request.getParameter("endereco_chegada_street_number");
@@ -148,6 +147,20 @@ public class PedirCaronaController {
         String cepSaida = request.getParameter("endereco_chegada_postal_code");
 
         return this.setEndereco(enderecoSaida, numeroSaida, bairroSaida, cidadeSaida, estadoSaida, latitudeSaida, longitudeSaida, cepSaida);
+    }
+
+    private boolean validaEndereco(HttpServletRequest request) {
+
+        if (request.getParameter("endereco_saida_route") == null || request.getParameter("endereco_chegada_route") == null) {
+            return false;
+        } else if (request.getParameter("endereco_saida_locality") == null || request.getParameter("endereco_chegada_locality") == null) {
+            return false;
+        } else if (request.getParameter("endereco_saida_country") == null || request.getParameter("endereco_chegada_country") == null) {
+            return false;
+        } else if (request.getParameter("endereco_saida_administrative_area_level_1") == null || request.getParameter("endereco_chegada_administrative_area_level_1") == null) {
+            return false;
+        }
+        return true;
     }
 
 }

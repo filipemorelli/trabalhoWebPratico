@@ -20,6 +20,7 @@
             </div>
         </li>
         <li class="bold"><a href="perfil" class="waves-effect waves-blue">Perfil</a></li>
+        <li class="bold"><a href="pesquisar-carona" class="waves-effect waves-blue">Pesquisar Caronas</a></li>
         <li class="bold"><a href="admin" class="waves-effect waves-blue">Histórico de Carona</a></li>
         <li class="bold"><a href="pedir-carona" class="waves-effect waves-blue">Pedir Carona</a></li>
         <li class="bold"><a href="oferecer-carona" class="waves-effect waves-blue">Oferecer Carona</a></li>

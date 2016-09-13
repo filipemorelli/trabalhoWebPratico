@@ -25,7 +25,7 @@
     OferecerCarona.prototype.componentForm = {
       street_number: 'short_name',
       route: 'long_name',
-      neighborhood: 'long_name',
+      sublocality_level_1: 'long_name',
       locality: 'long_name',
       administrative_area_level_1: 'short_name',
       country: 'long_name',
@@ -63,7 +63,7 @@
             data: {
               consideracoes: _this.consideracoes.val(),
               endereco_saida_street_number: _this.OferecerCaronaSaida.street_number,
-              endereco_saida_neighborhood: _this.OferecerCaronaSaida.neighborhood,
+              endereco_saida_neighborhood: _this.OferecerCaronaSaida.sublocality_level_1,
               endereco_saida_route: _this.OferecerCaronaSaida.route,
               endereco_saida_locality: _this.OferecerCaronaSaida.locality,
               endereco_saida_administrative_area_level_1: _this.OferecerCaronaSaida.administrative_area_level_1,
@@ -72,7 +72,7 @@
               endereco_saida_lat: _this.OferecerCaronaSaida.lat,
               endereco_saida_lng: _this.OferecerCaronaSaida.lng,
               endereco_chegada_street_number: _this.OferecerCaronaChegada.street_number,
-              endereco_chegada_neighborhood: _this.OferecerCaronaChegada.neighborhood,
+              endereco_chegada_neighborhood: _this.OferecerCaronaChegada.sublocality_level_1,
               endereco_chegada_route: _this.OferecerCaronaChegada.route,
               endereco_chegada_locality: _this.OferecerCaronaChegada.locality,
               endereco_chegada_administrative_area_level_1: _this.OferecerCaronaChegada.administrative_area_level_1,
@@ -84,7 +84,9 @@
             success: function(data) {
               if (data.status) {
                 _this.toast(data.msg);
-                return _this.formulario[0].reset();
+                _this.formulario[0].reset();
+                _this.OferecerCaronaSaida = {};
+                return _this.OferecerCaronaChegada = {};
               } else {
                 return _this.toast("Preencha o formulário corretamente");
               }

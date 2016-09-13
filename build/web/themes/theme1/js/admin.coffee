@@ -1,8 +1,8 @@
 class Admin 
 	constructor: (args) ->
 		$(document).ready ->
-		@visualizarRota()
-		@btnRemoverCarona()
+			@visualizarRota()
+			@btnRemoverCarona()
 	btnRemoverCarona: () =>
 		$this = @
 		$(".secondary-content").on 'click', (e) ->

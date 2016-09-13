@@ -44,9 +44,9 @@ public class OferecerCaronaController {
             try (ServletOutputStream pw = response.getOutputStream()) {
                 JSONObject json = new JSONObject();
 
-                if (result.hasFieldErrors("consideracoes")) {
+                if (result.hasFieldErrors("consideracoes") || !this.validaEndereco(request)) {
                     json.accumulate("status", false);
-                    json.accumulate("msg", "Necessário digitar as considerações");
+                    json.accumulate("msg", "Necessário corretamente os dados");
                 } else {
                     EnderecoModel enderecoSaida = this.getIdEnderecoSaida(request);
                     EnderecoModel enderecoChegada = this.getIdEnderecoChegada(request);
@@ -147,5 +147,19 @@ public class OferecerCaronaController {
         String cepSaida = request.getParameter("endereco_chegada_postal_code");
 
         return this.setEndereco(enderecoSaida, numeroSaida, bairroSaida, cidadeSaida, estadoSaida, latitudeSaida, longitudeSaida, cepSaida);
+    }
+
+    private boolean validaEndereco(HttpServletRequest request) {
+
+        if (request.getParameter("endereco_saida_route") == null || request.getParameter("endereco_chegada_route") == null) {
+            return false;
+        } else if (request.getParameter("endereco_saida_locality") == null || request.getParameter("endereco_chegada_locality") == null) {
+            return false;
+        } else if (request.getParameter("endereco_saida_country") == null || request.getParameter("endereco_chegada_country") == null) {
+            return false;
+        } else if (request.getParameter("endereco_saida_administrative_area_level_1") == null || request.getParameter("endereco_chegada_administrative_area_level_1") == null) {
+            return false;
+        }
+        return true;
     }
 }

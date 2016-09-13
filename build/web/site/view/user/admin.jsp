@@ -64,8 +64,8 @@
                                 li = li.replace("[tipo]", carona.getTipo_carona());
                                 li = li.replace("[id]", carona.getId().toString());
                                 li = li.replace("[consideracoes]", carona.getConsideracoes());
-                                li = li.replace("[endereco_saida]", carona.getEndereco_saida().getEndereco());
-                                li = li.replace("[endereco_chegada]", carona.getEndereco_chegada().getEndereco());
+                                li = li.replace("[endereco_saida]", !carona.getEndereco_saida().getEndereco().isEmpty() ? carona.getEndereco_saida().getEndereco(): "" );
+                                li = li.replace("[endereco_chegada]", !carona.getEndereco_chegada().getEndereco().isEmpty() ? carona.getEndereco_chegada().getEndereco() : "" );
 
                                 li = li.replace("[lat_saida]", carona.getEndereco_saida().getLatitude());
                                 li = li.replace("[lng_saida]", carona.getEndereco_saida().getLongitude());

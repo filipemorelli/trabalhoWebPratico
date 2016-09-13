@@ -39,6 +39,16 @@
     #map-route.modal .modal-content{
         padding: 0;
     }
+    #map-caronas{
+        padding: 0;
+    }
+    .map-caronas-fixed{
+        position: fixed;
+        top: 1rem;
+    }
+    .result-search{
+        margin-top: 15px;
+    }
     .collection .collection-item.avatar{
         cursor: pointer;
     }

@@ -11,7 +11,7 @@ class PedirCarona
     componentForm:
         street_number: 'short_name', #numero
         route: 'long_name', #endereco
-        neighborhood: 'long_name', #bairro
+        sublocality_level_1: 'long_name', #bairro
         locality: 'long_name', #cidade
         administrative_area_level_1: 'short_name', #estado sigla
         country: 'long_name', # pais
@@ -43,7 +43,7 @@ class PedirCarona
                     consideracoes: @consideracoes.val()
 
                     endereco_saida_street_number: @PedirCaronaSaida.street_number
-                    endereco_saida_neighborhood: @PedirCaronaSaida.neighborhood
+                    endereco_saida_neighborhood: @PedirCaronaSaida.sublocality_level_1
                     endereco_saida_route: @PedirCaronaSaida.route
                     endereco_saida_locality: @PedirCaronaSaida.locality
                     endereco_saida_administrative_area_level_1: @PedirCaronaSaida.administrative_area_level_1
@@ -53,7 +53,7 @@ class PedirCarona
                     endereco_saida_lng: @PedirCaronaSaida.lng
 
                     endereco_chegada_street_number: @PedirCaronaChegada.street_number
-                    endereco_chegada_neighborhood: @PedirCaronaChegada.neighborhood
+                    endereco_chegada_neighborhood: @PedirCaronaChegada.sublocality_level_1
                     endereco_chegada_route: @PedirCaronaChegada.route
                     endereco_chegada_locality: @PedirCaronaChegada.locality
                     endereco_chegada_administrative_area_level_1: @PedirCaronaChegada.administrative_area_level_1
@@ -65,6 +65,8 @@ class PedirCarona
                     if data.status
                         @toast data.msg
                         @formulario[0].reset()
+                        @PedirCaronaChegada = {}
+                        @PedirCaronaSaida = {}
                     else
                         @toast "Preencha o formulário corretamente"
                 error: () =>

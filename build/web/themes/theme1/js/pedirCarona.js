@@ -25,7 +25,7 @@
     PedirCarona.prototype.componentForm = {
       street_number: 'short_name',
       route: 'long_name',
-      neighborhood: 'long_name',
+      sublocality_level_1: 'long_name',
       locality: 'long_name',
       administrative_area_level_1: 'short_name',
       country: 'long_name',
@@ -63,7 +63,7 @@
             data: {
               consideracoes: _this.consideracoes.val(),
               endereco_saida_street_number: _this.PedirCaronaSaida.street_number,
-              endereco_saida_neighborhood: _this.PedirCaronaSaida.neighborhood,
+              endereco_saida_neighborhood: _this.PedirCaronaSaida.sublocality_level_1,
               endereco_saida_route: _this.PedirCaronaSaida.route,
               endereco_saida_locality: _this.PedirCaronaSaida.locality,
               endereco_saida_administrative_area_level_1: _this.PedirCaronaSaida.administrative_area_level_1,
@@ -72,7 +72,7 @@
               endereco_saida_lat: _this.PedirCaronaSaida.lat,
               endereco_saida_lng: _this.PedirCaronaSaida.lng,
               endereco_chegada_street_number: _this.PedirCaronaChegada.street_number,
-              endereco_chegada_neighborhood: _this.PedirCaronaChegada.neighborhood,
+              endereco_chegada_neighborhood: _this.PedirCaronaChegada.sublocality_level_1,
               endereco_chegada_route: _this.PedirCaronaChegada.route,
               endereco_chegada_locality: _this.PedirCaronaChegada.locality,
               endereco_chegada_administrative_area_level_1: _this.PedirCaronaChegada.administrative_area_level_1,
@@ -84,7 +84,9 @@
             success: function(data) {
               if (data.status) {
                 _this.toast(data.msg);
-                return _this.formulario[0].reset();
+                _this.formulario[0].reset();
+                _this.PedirCaronaChegada = {};
+                return _this.PedirCaronaSaida = {};
               } else {
                 return _this.toast("Preencha o formulário corretamente");
               }
