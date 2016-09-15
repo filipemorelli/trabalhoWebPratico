@@ -109,9 +109,10 @@ public class OferecerCaronaController {
         response.setHeader("Access-Control-Max-Age", "86400");
     }
 
-    private EnderecoModel setEndereco(String endereco, String numero, String bairro, String cidade, String estado, String latitude, String longitude, String cep) {
+    private EnderecoModel setEndereco(String endereco, String endereco_completo, String numero, String bairro, String cidade, String estado, String latitude, String longitude, String cep) {
         EnderecoModel e = new EnderecoModel();
         e.setEndereco(endereco);
+        e.setEndereco_completo(endereco_completo);
         e.setNumero(numero);
         e.setBairro(bairro);
         e.setCidade(cidade);
@@ -125,6 +126,7 @@ public class OferecerCaronaController {
 
     private EnderecoModel getIdEnderecoSaida(HttpServletRequest request) {
         String enderecoSaida = request.getParameter("endereco_saida_route");
+        String enderecoSaidaCompleto = request.getParameter("endereco_saida_completo");
         String numeroSaida = request.getParameter("endereco_saida_street_number");
         String bairroSaida = request.getParameter("endereco_saida_neighborhood");
         String cidadeSaida = request.getParameter("endereco_saida_locality");
@@ -133,20 +135,21 @@ public class OferecerCaronaController {
         String longitudeSaida = request.getParameter("endereco_saida_lng");
         String cepSaida = request.getParameter("endereco_saida_postal_code");
 
-        return this.setEndereco(enderecoSaida, numeroSaida, bairroSaida, cidadeSaida, estadoSaida, latitudeSaida, longitudeSaida, cepSaida);
+        return this.setEndereco(enderecoSaida, enderecoSaidaCompleto,numeroSaida, bairroSaida, cidadeSaida, estadoSaida, latitudeSaida, longitudeSaida, cepSaida);
     }
 
     private EnderecoModel getIdEnderecoChegada(HttpServletRequest request) {
-        String enderecoSaida = request.getParameter("endereco_chegada_route");
-        String numeroSaida = request.getParameter("endereco_chegada_street_number");
-        String bairroSaida = request.getParameter("endereco_chegada_neighborhood");
-        String cidadeSaida = request.getParameter("endereco_chegada_locality");
-        String estadoSaida = request.getParameter("endereco_chegada_administrative_area_level_1");
-        String latitudeSaida = request.getParameter("endereco_chegada_lat");
-        String longitudeSaida = request.getParameter("endereco_chegada_lng");
-        String cepSaida = request.getParameter("endereco_chegada_postal_code");
+        String enderecoChegada = request.getParameter("endereco_chegada_route");
+        String enderecoChegadaCompleto = request.getParameter("endereco_chegada_completo");
+        String numeroChegada = request.getParameter("endereco_chegada_street_number");
+        String bairroChegada = request.getParameter("endereco_chegada_neighborhood");
+        String cidadeChegada = request.getParameter("endereco_chegada_locality");
+        String estadoChegada = request.getParameter("endereco_chegada_administrative_area_level_1");
+        String latitudeChegada = request.getParameter("endereco_chegada_lat");
+        String longitudeChegada = request.getParameter("endereco_chegada_lng");
+        String cepChegada = request.getParameter("endereco_chegada_postal_code");
 
-        return this.setEndereco(enderecoSaida, numeroSaida, bairroSaida, cidadeSaida, estadoSaida, latitudeSaida, longitudeSaida, cepSaida);
+        return this.setEndereco(enderecoChegada, enderecoChegadaCompleto,numeroChegada, bairroChegada, cidadeChegada, estadoChegada, latitudeChegada, longitudeChegada, cepChegada);
     }
 
     private boolean validaEndereco(HttpServletRequest request) {

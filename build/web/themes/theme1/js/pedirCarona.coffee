@@ -41,7 +41,8 @@ class PedirCarona
                 dataType: 'json'
                 data:
                     consideracoes: @consideracoes.val()
-
+                    
+                    endereco_saida_completo: @enderecoSaida.val()
                     endereco_saida_street_number: @PedirCaronaSaida.street_number
                     endereco_saida_neighborhood: @PedirCaronaSaida.sublocality_level_1
                     endereco_saida_route: @PedirCaronaSaida.route
@@ -52,6 +53,7 @@ class PedirCarona
                     endereco_saida_lat: @PedirCaronaSaida.lat
                     endereco_saida_lng: @PedirCaronaSaida.lng
 
+                    endereco_chegada_completo: @enderecoChegada.val()
                     endereco_chegada_street_number: @PedirCaronaChegada.street_number
                     endereco_chegada_neighborhood: @PedirCaronaChegada.sublocality_level_1
                     endereco_chegada_route: @PedirCaronaChegada.route

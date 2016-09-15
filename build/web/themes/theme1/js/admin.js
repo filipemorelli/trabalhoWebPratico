@@ -6,10 +6,12 @@
   Admin = (function() {
     function Admin(args) {
       this.btnRemoverCarona = bind(this.btnRemoverCarona, this);
-      $(document).ready(function() {
-        this.visualizarRota();
-        return this.btnRemoverCarona();
-      });
+      $(document).ready((function(_this) {
+        return function() {
+          _this.visualizarRota();
+          return _this.btnRemoverCarona();
+        };
+      })(this));
     }
 
     Admin.prototype.btnRemoverCarona = function() {

@@ -8,6 +8,8 @@
 
     PesquisarCarona.prototype.campoPesquisa = $("#pesquisar");
 
+    PesquisarCarona.prototype.campoResultado = $(".result-search");
+
     PesquisarCarona.prototype.placeSearch = null;
 
     PesquisarCarona.prototype.autocomplete = null;
@@ -47,6 +49,7 @@
           $.ajax({
             url: 'pesquisar-carona-ajax',
             method: 'POST',
+            cache: false,
             dataType: 'json',
             data: {
               tipo: $("input[type=radio][name=tipo]:checked").val(),
@@ -61,10 +64,24 @@
               longitude: _this.OferecerCarona.lng
             },
             success: function(data) {
+              var d, j, len, list, results, value;
               if (data.status) {
-                _this.toast(data.msg);
                 _this.formulario[0].reset();
-                return _this.OferecerCarona = {};
+                _this.OferecerCarona = {};
+                d = JSON.parse(data.msg);
+                console.log(d);
+                window.DATA = d;
+                _this.campoResultado.html("");
+                results = [];
+                for (j = 0, len = d.length; j < len; j++) {
+                  value = d[j];
+                  list = '<li class="collection-item avatar"> <img src="[url_imagem]" alt="" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" class="secondary-content"><i class="material-icons">grade</i></a> </li>';
+                  list = list.replace("[url_social]", value.user.url_social);
+                  list = list.replace("[url_imagem]", value.user.url_imagem);
+                  list = list.replace("[consideracoes]", value.consideracoes);
+                  results.push(_this.campoResultado.append(list));
+                }
+                return results;
               } else {
                 return _this.toast(data.msg);
               }

@@ -138,7 +138,9 @@ public class UserController extends AppController {
                 Long idUser = UserModel.loadBySocialId((String) request.getSession().getAttribute("id_social")).getId();
                 List<CaronaModel> lista = this.buscaEnderecosCaronas(bairro, cidade, estado, tipo, idUser);
                 JSONArray a = new JSONArray(lista);
-                out.print(a.toString());
+                json.accumulate("status", true);
+                json.accumulate("msg", a.toString());
+                out.print(json.toString());
                 out.close();
             }
         } catch (IOException ex) {

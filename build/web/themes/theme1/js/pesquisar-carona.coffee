@@ -1,6 +1,7 @@
 class PesquisarCarona 
     formulario: $("#form-pesquisar-carona")
     campoPesquisa: $("#pesquisar")
+    campoResultado: $(".result-search")
     placeSearch: null
     autocomplete: null
     OferecerCarona: {}
@@ -29,6 +30,7 @@ class PesquisarCarona
             $.ajax
                 url: 'pesquisar-carona-ajax'
                 method: 'POST'
+                cache: false
                 dataType: 'json'
                 data:
                     tipo: $("input[type=radio][name=tipo]:checked").val()
@@ -45,9 +47,21 @@ class PesquisarCarona
 
                 success: (data) =>
                     if data.status
-                        @toast data.msg
                         @formulario[0].reset()
                         @OferecerCarona = {}
+                        d = JSON.parse data.msg
+                        console.log d
+                        window.DATA = d
+                        
+                        @campoResultado.html(""); # limpa o que tiver
+                        for value in d
+                          list = '<li class="collection-item avatar"> <img src="[url_imagem]" alt="" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" class="secondary-content"><i class="material-icons">grade</i></a> </li>'
+                          list = list.replace "[url_social]", value.user.url_social
+                          list = list.replace "[url_imagem]", value.user.url_imagem
+                          list = list.replace "[consideracoes]", value.consideracoes
+                          @campoResultado.append list
+                          
+                        
                     else
                         @toast data.msg
                 error: () =>

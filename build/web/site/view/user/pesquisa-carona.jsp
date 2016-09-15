@@ -64,14 +64,7 @@
 
                         <div class="col s12">
                             <ul class="col s12 m12 collection result-search">
-                                <li class="collection-item avatar">
-                                    <img src="images/yuna.jpg" alt="" class="circle">
-                                    <span class="title">Title</span>
-                                    <p>First Line <br>
-                                        Second Line
-                                    </p>
-                                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                                </li>
+                                <li class="collection-item center">Nenhuma Carona Registrada!</li>
                             </ul>
                         </div>
 

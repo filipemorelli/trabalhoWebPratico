@@ -27,6 +27,7 @@ public class EnderecoModel implements Serializable {
     private Long id;
 
     private String endereco;
+    private String endereco_completo;
     private String numero; //numero, A, B, Apartamento etc.
     @Column(length = 9)
     private String cep;
@@ -59,6 +60,14 @@ public class EnderecoModel implements Serializable {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+    
+    public String getEndereco_completo() {
+        return endereco_completo;
+    }
+
+    public void setEndereco_completo(String endereco_completo) {
+        this.endereco_completo = endereco_completo;
     }
 
     public String getNumero() {

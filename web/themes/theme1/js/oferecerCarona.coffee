@@ -42,6 +42,7 @@ class OferecerCarona
                 data:
                     consideracoes: @consideracoes.val()
 
+                    endereco_saida_completo: @enderecoSaida.val()
                     endereco_saida_street_number: @OferecerCaronaSaida.street_number
                     endereco_saida_neighborhood: @OferecerCaronaSaida.sublocality_level_1
                     endereco_saida_route: @OferecerCaronaSaida.route
@@ -52,6 +53,7 @@ class OferecerCarona
                     endereco_saida_lat: @OferecerCaronaSaida.lat
                     endereco_saida_lng: @OferecerCaronaSaida.lng
 
+                    endereco_chegada_completo: @enderecoChegada.val()
                     endereco_chegada_street_number: @OferecerCaronaChegada.street_number
                     endereco_chegada_neighborhood: @OferecerCaronaChegada.sublocality_level_1
                     endereco_chegada_route: @OferecerCaronaChegada.route

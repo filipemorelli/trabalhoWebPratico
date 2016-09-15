@@ -1,6 +1,6 @@
 class Admin 
 	constructor: (args) ->
-		$(document).ready ->
+		$(document).ready =>
 			@visualizarRota()
 			@btnRemoverCarona()
 	btnRemoverCarona: () =>

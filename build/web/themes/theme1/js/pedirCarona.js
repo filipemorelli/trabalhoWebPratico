@@ -62,6 +62,7 @@
             dataType: 'json',
             data: {
               consideracoes: _this.consideracoes.val(),
+              endereco_saida_completo: _this.enderecoSaida.val(),
               endereco_saida_street_number: _this.PedirCaronaSaida.street_number,
               endereco_saida_neighborhood: _this.PedirCaronaSaida.sublocality_level_1,
               endereco_saida_route: _this.PedirCaronaSaida.route,
@@ -71,6 +72,7 @@
               endereco_saida_postal_code: _this.PedirCaronaSaida.postal_code,
               endereco_saida_lat: _this.PedirCaronaSaida.lat,
               endereco_saida_lng: _this.PedirCaronaSaida.lng,
+              endereco_chegada_completo: _this.enderecoChegada.val(),
               endereco_chegada_street_number: _this.PedirCaronaChegada.street_number,
               endereco_chegada_neighborhood: _this.PedirCaronaChegada.sublocality_level_1,
               endereco_chegada_route: _this.PedirCaronaChegada.route,
