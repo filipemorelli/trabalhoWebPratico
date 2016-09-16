@@ -91,7 +91,7 @@
         <%@include file="../layout/floatButtonAdmin.jsp" %>
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/admin/configuracaoJs.jsp" %>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHMIcsEYQt1RoizBuH--1bWaWFNUcqM2I&signed_in=true&libraries=places&callback=PesquisarCarona.initAutocomplete" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHMIcsEYQt1RoizBuH--1bWaWFNUcqM2I&signed_in=true&libraries=places&callback=PesquisarCarona.init" async defer></script>
         <script src="<c:url value='/themes/theme1/js/pesquisar-carona.js' />" charset="utf-8"></script>
     </body>
 </html>

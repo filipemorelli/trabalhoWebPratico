@@ -1,3 +1,5 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URI"%>
 <%@page import="model.CaronaModel"%>
 <%@page import="java.lang.ProcessBuilder.Redirect.Type"%>
 <%@page import="model.UserModel"%>
@@ -52,7 +54,7 @@
                             out.print(li);
                         } else {
                             for (CaronaModel carona : caronas) {
-                                String li = "<li class='collection-item avatar modal-trigger' data-target='map-route' href-map=\"https://www.google.com/maps/embed?pb=!1m25!1m12!1m3!1d15004.089086165857!2d-43.95328392071172!3d-19.923466285716867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m10!3e6!4m3!3m2!1d[lat_saida]!2d[lng_saida]!4m4!2s[lat_chegada]%2C [lng_chegada]!3m2!1d[lat_chegada]!2d[lng_chegada]!5e0!3m2!1spt-BR!2sbr!4v1473694568701\"> <i class='material-icons circle [color]'>[icon]</i> <span class='title'>[consideracoes]</span> <p>De: [endereco_saida] <br> Para: [endereco_chegada]</p> <a href='#!' data-tipo='[tipo]' data-id='[id]' class='secondary-content'><i class='material-icons black-text'>close</i></a> </li>";
+                                String li = "<li class='collection-item avatar modal-trigger' data-target='map-route' href-map=\"https://www.google.com/maps/embed/v1/directions?key=AIzaSyCHMIcsEYQt1RoizBuH--1bWaWFNUcqM2I&origin=[endereco_saida_url]&destination=[endereco_chegada_url]&avoid=tolls|highways\"> <i class='material-icons circle [color]'>[icon]</i> <span class='title'>[consideracoes]</span> <p>De: [endereco_saida] <br> Para: [endereco_chegada]</p> <a href='#!' data-tipo='[tipo]' data-id='[id]' class='secondary-content'><i class='material-icons black-text'>close</i></a> </li>";
 
                                 if (carona.getTipo_carona().equals("oferecer")) {
                                     li = li.replace("[icon]", "directions_car");
@@ -64,13 +66,11 @@
                                 li = li.replace("[tipo]", carona.getTipo_carona());
                                 li = li.replace("[id]", carona.getId().toString());
                                 li = li.replace("[consideracoes]", carona.getConsideracoes());
-                                li = li.replace("[endereco_saida]", !carona.getEndereco_saida().getEndereco_completo().isEmpty() ? carona.getEndereco_saida().getEndereco_completo(): "" );
-                                li = li.replace("[endereco_chegada]", !carona.getEndereco_chegada().getEndereco_completo().isEmpty() ? carona.getEndereco_chegada().getEndereco_completo() : "" );
-
-                                li = li.replace("[lat_saida]", carona.getEndereco_saida().getLatitude());
-                                li = li.replace("[lng_saida]", carona.getEndereco_saida().getLongitude());
-                                li = li.replace("[lat_chegada]", carona.getEndereco_chegada().getLatitude());
-                                li = li.replace("[lng_chegada]", carona.getEndereco_chegada().getLongitude());
+                                li = li.replace("[endereco_saida]", !carona.getEndereco_saida().getEndereco_completo().isEmpty() ? carona.getEndereco_saida().getEndereco_completo().toString() : "" ) ;
+                                li = li.replace("[endereco_chegada]", !carona.getEndereco_chegada().getEndereco_completo().isEmpty() ? carona.getEndereco_chegada().getEndereco_completo().toString() : "" );
+                                
+                                li = li.replace("[endereco_saida_url]", !carona.getEndereco_saida().getEndereco_completo().isEmpty() ? URLEncoder.encode(carona.getEndereco_saida().getEndereco_completo(), "UTF-8") : "" ) ;
+                                li = li.replace("[endereco_chegada_url]", !carona.getEndereco_chegada().getEndereco_completo().isEmpty() ? URLEncoder.encode(carona.getEndereco_chegada().getEndereco_completo(), "UTF-8") : "" );
 
                                 out.print(li);
                             }

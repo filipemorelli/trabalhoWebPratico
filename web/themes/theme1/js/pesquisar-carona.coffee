@@ -16,6 +16,8 @@ class PesquisarCarona
     constructor:() ->
         @eventWindowResize()
         @onSubmit()
+    init: () =>
+      @initAutocomplete()
     
     onSubmit: () ->
         @formulario.submit =>
@@ -50,17 +52,33 @@ class PesquisarCarona
                         @formulario[0].reset()
                         @OferecerCarona = {}
                         d = JSON.parse data.msg
-                        console.log d
-                        window.DATA = d
                         
                         @campoResultado.html(""); # limpa o que tiver
                         for value in d
-                          list = '<li class="collection-item avatar"> <img src="[url_imagem]" alt="" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" class="secondary-content"><i class="material-icons">grade</i></a> </li>'
+                          #list = '<li class="collection-item avatar modal-trigger" data-target="map-route" href-map="https://www.google.com/maps/embed?pb=!1m25!1m12!1m3!1d15004.089086165857!2d-43.95328392071172!3d-19.923466285716867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m10!3e6!4m3!3m2!1d[lat_saida]!2d[lng_saida]!4m4!2s[lat_chegada]%2C [lng_chegada]!3m2!1d[lat_chegada]!2d[lng_chegada]!5e0!3m2!1spt-BR!2sbr!4v1473694568701"> <img src="[url_imagem]" alt="[nome]" title="[nome]" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" target="_blank" data-position="bottom" data-delay="50" data-tooltip="Ver perfil" class="secondary-content"><i class="material-icons">public</i></a> </li>'
+                          list = '<li class="collection-item avatar modal-trigger" data-target="map-route" href-map="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCHMIcsEYQt1RoizBuH--1bWaWFNUcqM2I&origin=[endereco_saida_completo]&destination=[endereco_chegada_completo]&avoid=tolls|highways"> <img src="[url_imagem]" alt="[nome]" title="[nome]" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" target="_blank" data-position="bottom" data-delay="50" data-tooltip="Ver perfil" class="secondary-content"><i class="material-icons">public</i></a> </li>'
+                          list = list.replace "[nome]", value.user.nome
+                          list = list.replace "[nome]", value.user.nome
                           list = list.replace "[url_social]", value.user.url_social
                           list = list.replace "[url_imagem]", value.user.url_imagem
                           list = list.replace "[consideracoes]", value.consideracoes
-                          @campoResultado.append list
+                          list = list.replace "[endereco_chegada]", value.endereco_chegada.endereco_completo
+                          list = list.replace "[endereco_saida]", value.endereco_saida.endereco_completo
+                          list = list.replace "[endereco_chegada_completo]", encodeURI(value.endereco_chegada.endereco_completo)
+                          list = list.replace "[endereco_saida_completo]", encodeURI(value.endereco_saida.endereco_completo)
+                          list = list.replace "[lat_saida]", value.endereco_saida.latitude
+                          list = list.replace "[lng_saida]", value.endereco_saida.longitude
+                          list = list.replace "[lat_chegada]", value.endereco_chegada.latitude
+                          list = list.replace "[lng_chegada]", value.endereco_chegada.longitude
                           
+                          list = $(list)
+                          list.leanModal();
+                          list.find('.secondary-content').tooltip()
+                          list.find('.secondary-content').on 'click', (e) ->
+                              e.stopPropagation();
+                          list.on 'click', ->
+                            $("#map-route iframe").attr 'src', $(this).attr 'href-map'
+                          @campoResultado.append list
                         
                     else
                         @toast data.msg
@@ -103,8 +121,7 @@ class PesquisarCarona
             i++
         @OferecerCarona['lat'] = place.geometry.location.lat();
         @OferecerCarona['lng'] = place.geometry.location.lng();
-
-    
+      
     geolocate: ()->
         if navigator.geolocation
             navigator.geolocation.getCurrentPosition (position) ->

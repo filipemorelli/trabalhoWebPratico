@@ -30,9 +30,14 @@
       this.eventWindow = bind(this.eventWindow, this);
       this.eventWindowResize = bind(this.eventWindowResize, this);
       this.fillInAddress = bind(this.fillInAddress, this);
+      this.init = bind(this.init, this);
       this.eventWindowResize();
       this.onSubmit();
     }
+
+    PesquisarCarona.prototype.init = function() {
+      return this.initAutocomplete();
+    };
 
     PesquisarCarona.prototype.onSubmit = function() {
       return this.formulario.submit((function(_this) {
@@ -69,16 +74,33 @@
                 _this.formulario[0].reset();
                 _this.OferecerCarona = {};
                 d = JSON.parse(data.msg);
-                console.log(d);
-                window.DATA = d;
                 _this.campoResultado.html("");
                 results = [];
                 for (j = 0, len = d.length; j < len; j++) {
                   value = d[j];
-                  list = '<li class="collection-item avatar"> <img src="[url_imagem]" alt="" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" class="secondary-content"><i class="material-icons">grade</i></a> </li>';
+                  list = '<li class="collection-item avatar modal-trigger" data-target="map-route" href-map="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCHMIcsEYQt1RoizBuH--1bWaWFNUcqM2I&origin=[endereco_saida_completo]&destination=[endereco_chegada_completo]&avoid=tolls|highways"> <img src="[url_imagem]" alt="[nome]" title="[nome]" class="circle"> <span class="title">[consideracoes]</span> <p>[endereco_saida] <br>[endereco_chegada] </p><a href="[url_social]" target="_blank" data-position="bottom" data-delay="50" data-tooltip="Ver perfil" class="secondary-content"><i class="material-icons">public</i></a> </li>';
+                  list = list.replace("[nome]", value.user.nome);
+                  list = list.replace("[nome]", value.user.nome);
                   list = list.replace("[url_social]", value.user.url_social);
                   list = list.replace("[url_imagem]", value.user.url_imagem);
                   list = list.replace("[consideracoes]", value.consideracoes);
+                  list = list.replace("[endereco_chegada]", value.endereco_chegada.endereco_completo);
+                  list = list.replace("[endereco_saida]", value.endereco_saida.endereco_completo);
+                  list = list.replace("[endereco_chegada_completo]", encodeURI(value.endereco_chegada.endereco_completo));
+                  list = list.replace("[endereco_saida_completo]", encodeURI(value.endereco_saida.endereco_completo));
+                  list = list.replace("[lat_saida]", value.endereco_saida.latitude);
+                  list = list.replace("[lng_saida]", value.endereco_saida.longitude);
+                  list = list.replace("[lat_chegada]", value.endereco_chegada.latitude);
+                  list = list.replace("[lng_chegada]", value.endereco_chegada.longitude);
+                  list = $(list);
+                  list.leanModal();
+                  list.find('.secondary-content').tooltip();
+                  list.find('.secondary-content').on('click', function(e) {
+                    return e.stopPropagation();
+                  });
+                  list.on('click', function() {
+                    return $("#map-route iframe").attr('src', $(this).attr('href-map'));
+                  });
                   results.push(_this.campoResultado.append(list));
                 }
                 return results;
